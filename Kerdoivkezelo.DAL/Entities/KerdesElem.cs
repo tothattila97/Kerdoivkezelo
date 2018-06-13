@@ -7,6 +7,6 @@ namespace NetCoreAngular.Data.Kerdoiv
 {
     public class KerdesElem
     {
-        public string Uri { get; set; }
+        public string KepUrl { get; set; }
     }
 }
