@@ -7,7 +7,6 @@ namespace Kerdoivkezelo.DAL.Entities
 {
     public class ValaszOsszerendeles
     {
-        public int Id { get; set; }
         public int ValaszElemId { get; set; }
         public ValaszElem ValaszElem { get; set; }
 

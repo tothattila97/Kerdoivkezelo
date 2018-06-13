@@ -7,7 +7,6 @@ namespace Kerdoivkezelo.DAL.Entities
 {
     public class KerdesOsszerendeles
     {
-        public int Id { get; set; }
         public int KerdesId { get; set; }
         public Kerdes Kerdes{ get; set; }
 

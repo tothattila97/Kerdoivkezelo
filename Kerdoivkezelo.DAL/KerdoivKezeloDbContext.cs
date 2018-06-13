@@ -18,11 +18,13 @@ namespace Kerdoivkezelo.DAL
         public DbSet<ValaszOsszerendeles> ValaszOsszerendelesek{ get; set; }
         protected  override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ValaszOsszerendeles>().HasKey(r => new {r.ValaszElemId, r.KerdesId});
             modelBuilder.Entity<KerdesOsszerendeles>().HasKey(r => new { r.KerdesId, r.KerdesElemId});
             modelBuilder.Entity<KerdoivKitoltese>().HasKey(r => new { r.FelhasznaloId, r.KerdoivId});
+
+            //modelBuilder.Entity<ValaszOsszerendeles>().HasMany("Kerdes");
         }
     }
 }

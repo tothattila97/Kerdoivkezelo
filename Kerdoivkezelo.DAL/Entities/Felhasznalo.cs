@@ -8,6 +8,7 @@ namespace Kerdoivkezelo.DAL.Entities
 {
     public class Felhasznalo
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public ObservableCollection<KerdoivKitoltese> KerdoivKitoltesek { get; set; }
     }
