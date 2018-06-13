@@ -42,6 +42,18 @@ export class KerdoivListaComponent implements OnInit {
     //TODO
   }
 
+  kerdoivMegnyitasa(nev: string): void {
+
+  }
+  
+  onEnter(value: string) {
+    
+  }
+
+  rendezNevSzerint() {
+    alert("rendez");
+  }
+
 }
 
 interface Kerdoiv {

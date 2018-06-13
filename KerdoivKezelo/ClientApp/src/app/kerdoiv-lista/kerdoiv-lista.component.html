@@ -2,15 +2,21 @@
 
 <p *ngIf="!kerdoivek"><em>Loading...</em></p>
 
+<p>
+  <label>Szűrés név szerint:</label>
+  <input #box (keyup.enter)="onEnter(box.value)"/>
+</p>
+
 <table class='table' *ngIf="kerdoivek">
   <thead>
     <tr>
-      <th>Kerdőív Név</th>
+      <th (click)="rendezNevSzerint()">Kerdőív Név</th>
       <th>Időkorlát</th>
       <th>Kitöltések száma</th>
       <th>Átlag pontszám</th>
       <th>Maximális pontszám</th>
       <th>Saját Eredmény</th>
+      <th>Megnyitás</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +27,9 @@
       <td>{{ kerdoiv.atlagPontszam }}</td>
       <td>{{ kerdoiv.maxPontszam }}</td>
       <td>{{ kerdoiv.eredmeny }}</td>
+      <td>
+        <button (click)="kerdoivMegnyitasa(kerdoiv.nev)">Kérdőív megynitása</button>
+      </td>
     </tr>
   </tbody>
 </table>
