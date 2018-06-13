@@ -33,11 +33,19 @@
     </tr>
   </tbody>
 </table>
-<p>
+
+<p *ngIf="isKereses">
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="keresesiOldalszam===1" disabled>Előző oldal</button>
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="keresesiOldalszam > 1">Előző oldal</button>
+  <label *ngIf="isKereses"> {{ keresesiOldalszam }} / {{ utolsoOldal }} </label>
+  <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="keresesiOldalszam===utolsoOldal" disabled>Következő oldal</button>
+  <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="keresesiOldalszam < utolsoOldal">Következő oldal</button>
+</p>
+
+<p *ngIf="!isKereses">
   <button id="btnElozo" (click)="elozoOldal()" *ngIf="oldalszam===1" disabled>Előző oldal</button>
-  <button id="btnElozo" (click)="elozoOldal()" *ngIf="oldalszam > 1" >Előző oldal</button>
-  <label>
-    {{ oldalszam }} / {{ utolsoOldal }}</label>
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="oldalszam > 1">Előző oldal</button>
+  <label *ngIf="!isKereses"> {{ oldalszam }} / {{ utolsoOldal }}</label>
   <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="oldalszam===utolsoOldal" disabled>Következő oldal</button>
   <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="oldalszam < utolsoOldal">Következő oldal</button>
 </p>

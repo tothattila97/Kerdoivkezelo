@@ -11,6 +11,7 @@ export class KerdoivListaComponent implements OnInit {
   oldalszam = 1;
   keresesiOldalszam = 1;
   szuroStr: string = "";
+  isKereses: boolean = false;
 
   http: HttpClient;
   baseUrl: string;
@@ -22,7 +23,7 @@ export class KerdoivListaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getKerdoivek(this.oldalszam - 1);
-    this.initMaxPage(false);
+    this.initMaxPage();
   }
 
   getKerdoivek(page: number, value: string = null) {
@@ -32,17 +33,17 @@ export class KerdoivListaComponent implements OnInit {
       }, error => console.error(error));
     }
     else {
-      this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivekByMegnevezes/' + value/* + "/" + page*/).subscribe(result => {
+      this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivekByMegnevezes/' + value + "/" + page).subscribe(result => {
         this.kerdoivek = result;
       }, error => console.error(error));
     }
   }
 
-  initMaxPage(isKereses: boolean): void {
+  initMaxPage(): void {
     let metodus: string;
     //TODO
-    if (isKereses) {
-      metodus = "GetMaxPage";
+    if (this.isKereses) {
+      metodus = "GetMatchingPagesNumber/" + this.szuroStr;
     }
     else {
       metodus = "GetMaxPage";
@@ -54,11 +55,11 @@ export class KerdoivListaComponent implements OnInit {
   }
 
   kovetkezoOldal(): void {
-    if (this.szuroStr !== "" && this.szuroStr !== null) {
+    if (this.isKereses) {
       if (this.keresesiOldalszam !== this.utolsoOldal) {
         this.keresesiOldalszam++;
       }
-      this.getKerdoivek(this.keresesiOldalszam - 1);
+      this.getKerdoivek(this.keresesiOldalszam - 1, this.szuroStr);
       return;
     }
 
@@ -69,11 +70,11 @@ export class KerdoivListaComponent implements OnInit {
   }
 
   elozoOldal(): void {
-    if (this.szuroStr !== "" && this.szuroStr !== null) {
+    if (this.isKereses) {
       if (this.keresesiOldalszam !== 1) {
         this.keresesiOldalszam--;
       }
-      this.getKerdoivek(this.keresesiOldalszam - 1);
+      this.getKerdoivek(this.keresesiOldalszam - 1, this.szuroStr);
       return;
     }
 
@@ -90,16 +91,20 @@ export class KerdoivListaComponent implements OnInit {
   onEnter(value: string) {
     if (value === "" || value === null) {
       this.szuroStr = "";
+      this.isKereses = false;
+      this.initMaxPage();
       this.getKerdoivek(this.oldalszam - 1);
     }
     else {
       this.szuroStr = value;
       this.keresesiOldalszam = 1;
-      this.initMaxPage(true);
+      this.isKereses = true;
+      this.initMaxPage();
       this.getKerdoivek(this.keresesiOldalszam - 1, value);
     }
   }
 
+  //TODO
   rendezNevSzerint() {
     alert("rendez");
   }
