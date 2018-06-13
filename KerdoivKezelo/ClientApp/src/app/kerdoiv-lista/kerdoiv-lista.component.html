@@ -1,10 +1,8 @@
-<h1>Weather forecast</h1>
+<h1>Kérdőívek</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p *ngIf="!kerdoivek"><em>Loading...</em></p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
-
-<table class='table' *ngIf="forecasts">
+<table class='table' *ngIf="kerdoivek">
   <thead>
     <tr>
       <th>Kerdőív Név</th>
@@ -19,7 +17,7 @@
     <tr *ngFor="let kerdoiv of kerdoivek">
       <td>{{ kerdoiv.nev }}</td>
       <td>{{ kerdoiv.idoKorlat }}</td>
-      <td>{{ kerdoiv.kitoltesekSzama }}</td>
+      <td>{{ kerdoiv.kitoltesSzam }}</td>
       <td>{{ kerdoiv.atlagPontszam }}</td>
       <td>{{ kerdoiv.maxPontszam }}</td>
       <td>{{ kerdoiv.eredmeny }}</td>
