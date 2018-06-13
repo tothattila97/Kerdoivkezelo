@@ -40,7 +40,20 @@ namespace KerdoivKezelo.Controllers
             return kerdoivekIdoIntervallummalSzurve;
         }
 
+        [HttpGet("{oldalszam}")]
+        public IEnumerable<Kerdoiv> GetPage(int oldalszam)
+        {
+            KerdoivService kerdoivService = new KerdoivService();
+            return kerdoivService.GetKerdoivekAdottOldalon(oldalszam);
+            
+        }
 
+        [HttpGet]
+        public int GetMaxPage()
+        {
+            KerdoivService kerdoivService = new KerdoivService();
+            return kerdoivService.GetMaxOldalszam();
+        }
 
 
         // GET: api/Kerdoiv/5
