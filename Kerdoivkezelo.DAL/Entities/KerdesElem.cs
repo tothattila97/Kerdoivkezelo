@@ -8,6 +8,7 @@ namespace NetCoreAngular.Data.Kerdoiv
 {
     public class KerdesElem
     {
+        public int Id { get; set; }
         public string Szoveg { get; set; }
         public ICollection<KerdesOsszerendeles> KerdesOsszerendelesek { get; set; }
     }
