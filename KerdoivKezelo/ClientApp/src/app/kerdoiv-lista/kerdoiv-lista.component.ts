@@ -5,13 +5,108 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-kerdoiv-lista',
   templateUrl: './kerdoiv-lista.component.html'
 })
-export class KerdoivListaComponent {
+export class KerdoivListaComponent implements OnInit {
   public kerdoivek: Kerdoiv[];
+  utolsoOldal: number;
+  oldalszam = 1;
+  keresesiOldalszam = 1;
+  szuroStr: string = "";
+  isKereses: boolean = false;
+
+  http: HttpClient;
+  baseUrl: string;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Kerdoiv[]>(baseUrl + 'api/Kerdoiv/GetKerdoivek').subscribe(result => {
-      this.kerdoivek = result;
+    this.http = http;
+    this.baseUrl = baseUrl;
+  }
+
+  ngOnInit(): void {
+    this.getKerdoivek(this.oldalszam - 1);
+    this.initMaxPage();
+  }
+
+  getKerdoivek(page: number, value: string = null) {
+    if (value === "" || value === null) {
+      this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetPage/' + page).subscribe(result => {
+        this.kerdoivek = result;
+      }, error => console.error(error));
+    }
+    else {
+      this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivekByMegnevezes/' + value + "/" + page).subscribe(result => {
+        this.kerdoivek = result;
+      }, error => console.error(error));
+    }
+  }
+
+  initMaxPage(): void {
+    let metodus: string;
+    //TODO
+    if (this.isKereses) {
+      metodus = "GetMatchingPagesNumber/" + this.szuroStr;
+    }
+    else {
+      metodus = "GetMaxPage";
+    }
+
+    this.http.get<number>(this.baseUrl + 'api/Kerdoiv/' + metodus).subscribe(result => {
+      this.utolsoOldal = result;
     }, error => console.error(error));
+  }
+
+  kovetkezoOldal(): void {
+    if (this.isKereses) {
+      if (this.keresesiOldalszam !== this.utolsoOldal) {
+        this.keresesiOldalszam++;
+      }
+      this.getKerdoivek(this.keresesiOldalszam - 1, this.szuroStr);
+      return;
+    }
+
+    if (this.oldalszam !== this.utolsoOldal) {
+      this.oldalszam++;
+    }
+    this.getKerdoivek(this.oldalszam - 1);
+  }
+
+  elozoOldal(): void {
+    if (this.isKereses) {
+      if (this.keresesiOldalszam !== 1) {
+        this.keresesiOldalszam--;
+      }
+      this.getKerdoivek(this.keresesiOldalszam - 1, this.szuroStr);
+      return;
+    }
+
+    if (this.oldalszam !== 1) {
+      this.oldalszam--;
+    }
+    this.getKerdoivek(this.oldalszam - 1);
+  }
+
+  kerdoivMegnyitasa(nev: string): void {
+
+  }
+  
+  onEnter(value: string) {
+    if (value === "" || value === null) {
+      this.szuroStr = "";
+      this.isKereses = false;
+      this.initMaxPage();
+      this.getKerdoivek(this.oldalszam - 1);
+    }
+    else {
+      this.szuroStr = value;
+      this.keresesiOldalszam = 1;
+      this.isKereses = true;
+      this.initMaxPage();
+      this.getKerdoivek(this.keresesiOldalszam - 1, value);
+    }
+  }
+
+  //TODO
+  rendezNevSzerint() {
+    alert("rendez");
   }
 
 }
