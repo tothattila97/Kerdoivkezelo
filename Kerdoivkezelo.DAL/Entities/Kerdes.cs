@@ -7,12 +7,12 @@ namespace NetCoreAngular.Data.Kerdoiv
 {
     public class Kerdes
     {
-        public List<KerdesElem> KerdesElemek { get; set; }
+        public ICollection<KerdesElem> KerdesElemek { get; set; }
 
-        public List<ValaszElem> ValaszElemek { get; set; }
+        public ICollection<ValaszElem> ValaszElemek { get; set; }
 
-        public List<ValaszElem> HelyesValaszok { get; set; }
+        public ICollection<ValaszElem> HelyesValaszok { get; set; }
 
-        public List<ValaszElem> JeloltValaszok { get; set; }
+        public ICollection<ValaszElem> JeloltValaszok { get; set; }
     }
 }

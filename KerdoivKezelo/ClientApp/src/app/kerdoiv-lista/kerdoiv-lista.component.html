@@ -1,0 +1,26 @@
+<h1>Kérdőívek</h1>
+
+<p *ngIf="!kerdoivek"><em>Loading...</em></p>
+
+<table class='table' *ngIf="kerdoivek">
+  <thead>
+    <tr>
+      <th>Kerdőív Név</th>
+      <th>Időkorlát</th>
+      <th>Kitöltések száma</th>
+      <th>Átlag pontszám</th>
+      <th>Maximális pontszám</th>
+      <th>Saját Eredmény</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let kerdoiv of kerdoivek">
+      <td>{{ kerdoiv.nev }}</td>
+      <td>{{ kerdoiv.idoKorlat }}</td>
+      <td>{{ kerdoiv.kitoltesSzam }}</td>
+      <td>{{ kerdoiv.atlagPontszam }}</td>
+      <td>{{ kerdoiv.maxPontszam }}</td>
+      <td>{{ kerdoiv.eredmeny }}</td>
+    </tr>
+  </tbody>
+</table>
