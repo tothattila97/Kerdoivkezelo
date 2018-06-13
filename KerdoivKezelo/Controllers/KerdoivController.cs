@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Kerdoivkezelo.DAL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreAngular.Data.Kerdoiv;
@@ -14,9 +15,12 @@ namespace KerdoivKezelo.Controllers
     {
         // GET: api/Kerdoiv
         [HttpGet]
-        public IEnumerable<string> GetKerdoivek()
+        public IEnumerable<Kerdoiv> GetKerdoivek()
         {
-            return new string[] { "value1", "value2" };
+            //return new string[] { "value1", "value2" };
+            KerdoivService kerdoivService = new KerdoivService();
+            var mockData = kerdoivService.GetMockKerdoivek();
+            return mockData;
 
         }
 
