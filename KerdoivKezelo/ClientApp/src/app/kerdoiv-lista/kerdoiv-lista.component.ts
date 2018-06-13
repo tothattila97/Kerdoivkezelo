@@ -7,11 +7,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class KerdoivListaComponent implements OnInit {
   public kerdoivek: Kerdoiv[];
-  maxElemszamEgyOldalon: number = 20;
   utolsoOldal: number = 5;
   oldalszam = 1;
 
+  http: HttpClient;
+  baseUrl: string;
+
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    this.http = http;
+    this.baseUrl = baseUrl;
+  }
+
+  ngOnInit(): void {
+    this.getKerdoivek();
+  }
+
+  getKerdoivek() {
+    this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivek').subscribe(result => {
       this.kerdoivek = result;
     }, error => console.error(error));
   }
