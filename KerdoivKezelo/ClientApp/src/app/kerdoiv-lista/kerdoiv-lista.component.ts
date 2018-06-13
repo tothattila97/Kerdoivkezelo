@@ -5,14 +5,13 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-kerdoiv-lista',
   templateUrl: './kerdoiv-lista.component.html'
 })
-export class KerdoivListaComponent {
+export class KerdoivListaComponent implements OnInit {
   public kerdoivek: Kerdoiv[];
   maxElemszamEgyOldalon: number = 20;
   utolsoOldal: number = 5;
   oldalszam = 1;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Kerdoiv[]>(baseUrl + 'api/Kerdoiv/GetKerdoivek').subscribe(result => {
       this.kerdoivek = result;
     }, error => console.error(error));
   }
