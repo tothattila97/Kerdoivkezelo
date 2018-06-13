@@ -24,6 +24,25 @@ namespace KerdoivKezelo.Controllers
 
         }
 
+        [HttpGet("{querystr}")]
+        public IEnumerable<Kerdoiv> GetKerdoivekByMegnevezes(string querystr)
+        {
+            KerdoivService kerdoivService = new KerdoivService();
+            var kerdoivekMegnevezesselSzurve = kerdoivService.GetSzurtKerdoivekByMegnevezes(querystr);
+            return kerdoivekMegnevezesselSzurve;
+        }
+
+        [HttpGet("{alsoIdoKorlat}/{felsoIdoKorlat}")]
+        public IEnumerable<Kerdoiv> GetKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat)
+        {
+            KerdoivService kerdoivService = new KerdoivService();
+            var kerdoivekIdoIntervallummalSzurve = kerdoivService.GetSzurtKerdoivekByIdoIntervallum(alsoIdoKorlat, felsoIdokorlat);
+            return kerdoivekIdoIntervallummalSzurve;
+        }
+
+
+
+
         // GET: api/Kerdoiv/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
