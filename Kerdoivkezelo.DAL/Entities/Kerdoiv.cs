@@ -7,6 +7,7 @@ namespace NetCoreAngular.Data.Kerdoiv
 {
     public class Kerdoiv
     {
+        public int Id { get; set; }
         public string Nev { get; set; }
 
         public int? IdoKorlat { get; set; }
@@ -17,7 +18,7 @@ namespace NetCoreAngular.Data.Kerdoiv
 
         public int? MaxPontszam { get; set; }
 
-        public List<Kerdes> Kerdesek { get; set; }
+        public ICollection<Kerdes> Kerdesek { get; set; }
 
         public int? ElertPontszamSzumma { get; set; }
     }
