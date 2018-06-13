@@ -1,6 +1,5 @@
 ﻿using Kerdoivkezelo.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using NetCoreAngular.Data.Kerdoiv;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,7 +18,7 @@ namespace Kerdoivkezelo.DAL
         public DbSet<ValaszOsszerendeles> ValaszOsszerendelesek{ get; set; }
         protected  override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ValaszOsszerendeles>().HasKey(r => new {r.ValaszElemId, r.KerdesId});
             modelBuilder.Entity<KerdesOsszerendeles>().HasKey(r => new { r.KerdesId, r.KerdesElemId});

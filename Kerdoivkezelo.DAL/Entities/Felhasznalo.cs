@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCoreAngular.Data.Kerdoiv
+namespace Kerdoivkezelo.DAL.Entities
 {
     public class Felhasznalo
     {
