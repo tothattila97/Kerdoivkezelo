@@ -53,18 +53,10 @@ namespace Kerdoivkezelo.DAL.Services
             return mockKerdoivek;
         }
 
-        public IList<Kerdoiv> GetSzurtKerdoivekByMegnevezes(string querystr)
+        public IList<Kerdoiv> GetSzurtKerdoivekByMegnevezes(string querystr, int pagenumber)
         {
             init();
-            IList<Kerdoiv> result = new List<Kerdoiv>();
-            foreach( var tempKerdoiv in mockKerdoivek)
-            {
-                if (tempKerdoiv.Nev.ToLower().Contains(querystr.ToLower()))
-                {
-                    result.Add(tempKerdoiv);
-                }
-            }
-            return result;
+            return mockKerdoivek.Where(t => t.Nev.ToLower().Contains(querystr.ToLower())).Skip(pagenumber * oldalMeret).Take(oldalMeret).ToList();
         }
 
         public IList<Kerdoiv> GetSzurtKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat)
@@ -91,6 +83,12 @@ namespace Kerdoivkezelo.DAL.Services
         {
             init();
             return (mockKerdoivek.Count / oldalMeret) + 1;
+        }
+
+        public int GetNumberOfPages(string querystring)
+        {
+            init();
+            return (mockKerdoivek.Where(t => t.Nev.ToLower().Contains(querystring.ToLower())).Count() / oldalMeret)+1;
         }
     }
 }
