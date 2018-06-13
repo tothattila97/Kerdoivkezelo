@@ -24,3 +24,11 @@
     </tr>
   </tbody>
 </table>
+<p>
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="oldalszam===1" disabled>Előző oldal</button>
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="oldalszam > 1" >Előző oldal</button>
+  <label>
+    {{ oldalszam }} / {{ utolsoOldal }}</label>
+  <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="oldalszam===utolsoOldal" disabled>Következő oldal</button>
+  <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="oldalszam < utolsoOldal">Következő oldal</button>
+</p>
