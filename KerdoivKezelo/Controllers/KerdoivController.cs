@@ -28,11 +28,11 @@ namespace KerdoivKezelo.Controllers
             return kerdoivService.GetSzurtKerdoivekByMegnevezes(querystr, pagenumber);
         }
 
-        [HttpGet("{alsoIdoKorlat}/{felsoIdoKorlat}")]
-        public IEnumerable<Kerdoiv> GetKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat)
+        [HttpGet("{alsoIdoKorlat}/{felsoIdoKorlat}/{oldalszam}")]
+        public IEnumerable<Kerdoiv> GetKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
         {
             KerdoivService kerdoivService = new KerdoivService();
-            return kerdoivService.GetSzurtKerdoivekByIdoIntervallum(alsoIdoKorlat, felsoIdokorlat);
+            return kerdoivService.GetSzurtKerdoivekByIdoIntervallum(alsoIdoKorlat, felsoIdokorlat, oldalszam);
         }
 
         [HttpGet("{oldalszam}")]
@@ -54,7 +54,14 @@ namespace KerdoivKezelo.Controllers
         public int GetMatchingPagesNumber(string querystring)
         {
             KerdoivService kerdoivService = new KerdoivService();
-            return kerdoivService.GetNumberOfPages(querystring);
+            return kerdoivService.GetNumberOfPagesByQuerystring(querystring);
+        }
+
+        [HttpGet("{alsoIdokorlat}/{felsoIdokorlat}")]
+        public int GetPagesNumberByTimeInterval(int alsoIdokorlat, int felsoIdokorlat)
+        {
+            KerdoivService kerdoivService = new KerdoivService();
+            return kerdoivService.GetNumberOfPagesByTimeInterval(alsoIdokorlat, felsoIdokorlat);
         }
        
         // GET: api/Kerdoiv/5

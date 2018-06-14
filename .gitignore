@@ -240,6 +240,7 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
+
 # Paket dependency manager
 .paket/paket.exe
 paket-files/
@@ -250,3 +251,10 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# VS Code
+.vscode/*
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/extensions.json
