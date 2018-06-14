@@ -1,7 +1,10 @@
 using Kerdoivkezelo.DAL;
+using Kerdoivkezelo.DAL.Entities;
+using Kerdoivkezelo.DAL.Seed;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +16,7 @@ namespace KerdoivKezelo
     public class Startup
     {
         public Startup(IConfiguration configuration)
-        {
+        { 
             Configuration = configuration;
         }
 
@@ -22,8 +25,13 @@ namespace KerdoivKezelo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<Felhasznalo, IdentityRole<int>>(options => options.Stores.MaxLengthForKeys = 128)
+                .AddEntityFrameworkStores<KerdoivKezeloDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddDbContext<KerdoivKezeloDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))));
+            options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))))
+            .AddTransient<AdministratorSeeder>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -50,6 +58,7 @@ namespace KerdoivKezelo
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

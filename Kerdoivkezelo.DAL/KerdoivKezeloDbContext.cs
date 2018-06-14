@@ -1,4 +1,6 @@
 ﻿using Kerdoivkezelo.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace Kerdoivkezelo.DAL
 {
-    public class KerdoivKezeloDbContext : DbContext
+    public class KerdoivKezeloDbContext : IdentityDbContext<Felhasznalo, IdentityRole<int>, int>
     {
         public KerdoivKezeloDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Kerdes> Kerdesek { get; set; }
@@ -24,6 +26,8 @@ namespace Kerdoivkezelo.DAL
             modelBuilder.Entity<KerdesOsszerendeles>().HasKey(r => new { r.KerdesId, r.KerdesElemId});
             modelBuilder.Entity<KerdoivKitoltes>().HasKey(r => new { r.FelhasznaloId, r.KerdoivId});
 
+
+            modelBuilder.Entity<Felhasznalo>().ToTable("Felhasznalok");
             //modelBuilder.Entity<ValaszOsszerendeles>().HasMany("Kerdes");
         }
     }
