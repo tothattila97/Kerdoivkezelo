@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Kerdoivkezelo.DAL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetCoreAngular.Data.Kerdoiv;
+using Kerdoivkezelo.DAL.Entities;
 
 namespace KerdoivKezelo.Controllers
 {
