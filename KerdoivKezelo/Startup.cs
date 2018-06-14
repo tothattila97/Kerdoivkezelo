@@ -1,4 +1,5 @@
 using Kerdoivkezelo.DAL;
+using Kerdoivkezelo.DAL.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,7 +24,8 @@ namespace KerdoivKezelo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<KerdoivKezeloDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))));
+            options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))))
+                .AddScoped<KerdoivService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
