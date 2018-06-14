@@ -26,14 +26,14 @@ export class KerdoivListaComponent implements OnInit {
     this.initMaxPage();
   }
 
-  getKerdoivek(page: number, value: string = null) {
-    if (value === "" || value === null) {
+  getKerdoivek(page: number) {
+    if (!this.isKereses) {
       this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetPage/' + page).subscribe(result => {
         this.kerdoivek = result;
       }, error => console.error(error));
     }
     else {
-      this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivekByMegnevezes/' + value + "/" + page).subscribe(result => {
+      this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivekByMegnevezes/' + this.szuroStr + "/" + page).subscribe(result => {
         this.kerdoivek = result;
       }, error => console.error(error));
     }
@@ -59,7 +59,7 @@ export class KerdoivListaComponent implements OnInit {
       if (this.keresesiOldalszam !== this.utolsoOldal) {
         this.keresesiOldalszam++;
       }
-      this.getKerdoivek(this.keresesiOldalszam - 1, this.szuroStr);
+      this.getKerdoivek(this.keresesiOldalszam - 1);
       return;
     }
 
@@ -74,7 +74,7 @@ export class KerdoivListaComponent implements OnInit {
       if (this.keresesiOldalszam !== 1) {
         this.keresesiOldalszam--;
       }
-      this.getKerdoivek(this.keresesiOldalszam - 1, this.szuroStr);
+      this.getKerdoivek(this.keresesiOldalszam - 1);
       return;
     }
 
@@ -87,20 +87,30 @@ export class KerdoivListaComponent implements OnInit {
   kerdoivMegnyitasa(nev: string): void {
 
   }
+
+  private setKereses(value: string) {
+    this.szuroStr = value;
+    this.keresesiOldalszam = 1;
+    this.isKereses = true;
+    this.initMaxPage();
+    this.getKerdoivek(this.keresesiOldalszam - 1);
+  }
   
   onEnter(value: string) {
-    if (value === "" || value === null) {
-      this.szuroStr = "";
+    if (value !== "" && value !== null && value !== undefined) {
+      this.setKereses(value);
+    }
+  }
+
+  onBackspace(value: string) {
+    if (value === "") {
+      this.szuroStr = value;
       this.isKereses = false;
       this.initMaxPage();
       this.getKerdoivek(this.oldalszam - 1);
     }
     else {
-      this.szuroStr = value;
-      this.keresesiOldalszam = 1;
-      this.isKereses = true;
-      this.initMaxPage();
-      this.getKerdoivek(this.keresesiOldalszam - 1, value);
+      this.setKereses(value);
     }
   }
 

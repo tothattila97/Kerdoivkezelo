@@ -4,7 +4,7 @@
 
 <p>
   <label>Szűrés név szerint:</label>
-  <input #box (keyup.enter)="onEnter(box.value)"/>
+  <input #box (keyup.enter)="onEnter(box.value)" (keyup.backspace)="onBackspace(box.value)"/>
 </p>
 
 <table class='table' *ngIf="kerdoivek">
