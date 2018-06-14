@@ -2,9 +2,24 @@
 
 <p *ngIf="!kerdoivek"><em>Loading...</em></p>
 
-<p>
-  <label>Szűrés név szerint:</label>
-  <input #box (keyup.enter)="onEnter(box.value)" (keyup.backspace)="onBackspace(box.value)"/>
+<p *ngIf="vasztottOpcio==='optionNev'">
+  <select (change)="opcioValasztas($event.target.value)">
+    <option value="optionNev" selected>Szűrés név szerint:</option>
+    <option value="optionIdokorlat">Szűrés időkorlát szerint:</option>
+  </select>
+  <input #searchBoxNev (keyup.enter)="onEnterNev(searchBoxNev.value)" (keyup.backspace)="onBackspaceNev(searchBoxNev.value)" />
+</p>
+
+<p *ngIf="vasztottOpcio==='optionIdokorlat'">
+  <select (change)="opcioValasztas($event.target.value)">
+    <option value="optionNev">Szűrés név szerint:</option>
+    <option value="optionIdokorlat" selected>Szűrés időkorlát szerint:</option>
+  </select>
+  <input #searchBoxKezdo (keyup.enter)="onEnterIdo(searchBoxKezdo.value, searchBoxVegso.value)"
+         (keyup.backspace)="onBackspaceIdo(searchBoxKezdo.value, searchBoxVegso.value)" />
+  <label> - </label>
+  <input #searchBoxVegso (keyup.enter)="onEnterIdo(searchBoxKezdo.value, searchBoxVegso.value)"
+         (keyup.backspace)="onBackspaceIdo(searchBoxKezdo.value, searchBoxVegso.value)" />
 </p>
 
 <table class='table' *ngIf="kerdoivek">

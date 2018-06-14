@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { basename } from 'path';
 
 @Component({
   selector: 'app-kerdoiv-lista',
@@ -10,8 +11,13 @@ export class KerdoivListaComponent implements OnInit {
   utolsoOldal: number;
   oldalszam = 1;
   keresesiOldalszam = 1;
+
+  //szűréshez használt értékek
   szuroStr: string = "";
+  kezdoIdo: number = 0;
+  vegsoIdo: number = 0;
   isKereses: boolean = false;
+  vasztottOpcio = "optionNev";
 
   http: HttpClient;
   baseUrl: string;
@@ -33,17 +39,29 @@ export class KerdoivListaComponent implements OnInit {
       }, error => console.error(error));
     }
     else {
-      this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivekByMegnevezes/' + this.szuroStr + "/" + page).subscribe(result => {
-        this.kerdoivek = result;
-      }, error => console.error(error));
+      if (this.vasztottOpcio === "optionNev") {
+        this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivekByMegnevezes/' + this.szuroStr + "/" + page).subscribe(result => {
+          this.kerdoivek = result;
+        }, error => console.error(error));
+      }
+      if (this.vasztottOpcio === "optionIdokorlat") {
+        this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kerdoiv/GetKerdoivekByIdoIntervallum/' +
+          this.kezdoIdo + "/" + this.vegsoIdo + "/" + page).subscribe(result => {
+          this.kerdoivek = result;
+        }, error => console.error(error));
+      }
     }
   }
 
   initMaxPage(): void {
     let metodus: string;
-    //TODO
     if (this.isKereses) {
-      metodus = "GetMatchingPagesNumber/" + this.szuroStr;
+      if (this.vasztottOpcio === "optionNev") {
+        metodus = "GetMatchingPagesNumber/" + this.szuroStr;
+      }
+      if (this.vasztottOpcio === "optionIdokorlat") {
+        metodus = "GetPagesNumberByTimeInterval/" + this.kezdoIdo + "/" + this.vegsoIdo;
+      }
     }
     else {
       metodus = "GetMaxPage";
@@ -84,33 +102,97 @@ export class KerdoivListaComponent implements OnInit {
     this.getKerdoivek(this.oldalszam - 1);
   }
 
+  opcioValasztas(opcio) {
+    this.vasztottOpcio = opcio;
+    if (opcio === "optionNev") {
+      this.nevSzuresTorles();
+    }
+    if (opcio === "optionIdokorlat") {
+      this.idoSzuresTorles();
+    }
+  }
+
   kerdoivMegnyitasa(nev: string): void {
 
   }
 
-  private setKereses(value: string) {
+  private setKeresesNev(value: string) {
     this.szuroStr = value;
     this.keresesiOldalszam = 1;
     this.isKereses = true;
     this.initMaxPage();
     this.getKerdoivek(this.keresesiOldalszam - 1);
   }
+
+  private nevSzuresTorles() {
+    this.szuroStr = "";
+    this.isKereses = false;
+    this.initMaxPage();
+    this.getKerdoivek(this.oldalszam - 1);
+  }
   
-  onEnter(value: string) {
+  onEnterNev(value: string) {
     if (value !== "" && value !== null && value !== undefined) {
-      this.setKereses(value);
+      this.setKeresesNev(value);
+    }
+    else {
+      this.nevSzuresTorles();
     }
   }
 
-  onBackspace(value: string) {
+  onBackspaceNev(value: string) {
     if (value === "") {
-      this.szuroStr = value;
-      this.isKereses = false;
-      this.initMaxPage();
-      this.getKerdoivek(this.oldalszam - 1);
+      this.nevSzuresTorles();
     }
     else {
-      this.setKereses(value);
+      this.setKeresesNev(value);
+    }
+  }
+
+  private setKeresesIdo(kezdo, vegso) {
+    if (kezdo === "") {
+      this.kezdoIdo = 0;
+    }
+    else {
+      this.kezdoIdo = kezdo;
+    }
+
+    if (vegso === "") {
+      this.vegsoIdo = 120;
+    }
+    else {
+      this.vegsoIdo = vegso;
+    }
+    
+    this.keresesiOldalszam = 1;
+    this.isKereses = true;
+    this.initMaxPage();
+    this.getKerdoivek(this.keresesiOldalszam - 1);
+  }
+
+  private idoSzuresTorles() {
+    this.kezdoIdo = 0;
+    this.vegsoIdo = 0;
+    this.isKereses = false;
+    this.initMaxPage();
+    this.getKerdoivek(this.oldalszam - 1);
+  }
+
+  onEnterIdo(kezdo, vegso) {
+    if (kezdo === "" && vegso === "") {
+      this.idoSzuresTorles();
+    }
+    else {
+      this.setKeresesIdo(kezdo, vegso);
+    }
+  }
+
+  onBackspaceIdo(kezdo, vegso) {
+    if (kezdo === "" && vegso === "") {
+      this.idoSzuresTorles();
+    }
+    else {
+      this.setKeresesIdo(kezdo, vegso);
     }
   }
 
