@@ -13,17 +13,17 @@ namespace KerdoivKezelo.Controllers
     public class KitoltesController : Controller
     {
         [HttpGet]
-        public IEnumerable<IEnumerable<KerdoivKitoltese>> GetKerdoivKitoltesek()
+        public IEnumerable<Kerdoiv> GetKerdoivek()
         {
             KitoltesService ks = new KitoltesService();
-            return ks.GetMockKitoltesek();
+            return ks.GetKerdoivek();
         }
 
-        [HttpGet]
-        public Kerdoiv GetKerdoiv()
+        [HttpGet("{id}")]
+        public IEnumerable<KerdoivKitoltese> GetKitoltesek(int id)
         {
             KitoltesService ks = new KitoltesService();
-            return ks.GetMockKerdoiv();
+            return ks.GetKitoltesek(id);
         }
     }
 }

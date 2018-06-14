@@ -1,36 +1,37 @@
-<style>
-  .chart-element {
-    font: 10px sans-serif;
-    background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
-    color: white;
-  }
-</style>
-
-<h1>{{kerdoiv.nev}}</h1>
+<!-- kérdőív változtatás -->
+<div class="kontener">
+  <h3>Kérdőív választás</h3>
+  <select (change)="kerdoivValtas($event)">
+    <option value="{{i}}" *ngFor="let kerdoiv of kerdoivek; let i=index">
+      {{kerdoiv.nev}}
+    </option>
+  </select>
+</div>
 
 <!-- sávszélesség változtatás -->
-<div>
-  <input type="button" value="-" (click)="savSzelessegValtoztatas(-1)" />
-  {{savSzelesseg}}
+<div class="kontener">
+  <h3>Sáv szélesség váltás</h3>
+  <input type="button" value="-" (click)="savSzelessegValtoztatas(-1)" [disabled]="savSzelesseg==1" />
+  <span class="sav-szelesseg-ertek">{{savSzelesseg}}</span>
   <input type="button" value="+" (click)="savSzelessegValtoztatas(1)" />
 </div>
 
 <!-- grafikon -->
-<div *ngFor="let kitoltesCsoport of kitoltesek; let i=index">
-  <div *ngIf="kitoltesCsoport.length > 0" (click)="reszletezes(i)">
-    <p>{{i*savSzelesseg}}-{{i*savSzelesseg+(savSzelesseg-1)}}:</p>
-    <div class="chart-element" [ngStyle]="{'width.px':  kitoltesCsoport.length * szelessegSzorzo}">
-      {{ kitoltesCsoport.length}}
+<div class="kontener">
+  <h3>Grafikon</h3>
+  <div *ngFor="let kitoltesCsoport of csoportositottKitoltesek; let i=index">
+    <div *ngIf="kitoltesCsoport.length > 0" (click)="reszletezes(i)" class="grafikon-sav">
+      <span class="grafikon-sav-cim">{{getCsoportNev(i)}}:</span>
+      <div class="grafikon-sav-tartalom" [ngStyle]="{'width.%': 100 * kitoltesCsoport.length / maxCsoportMeret}">
+        {{ kitoltesCsoport.length}}
+      </div>
     </div>
   </div>
 </div>
 
 <!-- részletek -->
-<div *ngIf="kivalasztott>=0">
-  <h2>{{kivalasztott*savSzelesseg}}-{{kivalasztott*savSzelesseg+(savSzelesseg-1)}} részletei:</h2>
+<div *ngIf="kivalasztottKitoltesCsoport>=0" class="kontener">
+  <h3>{{getCsoportNev(kivalasztottKitoltesCsoport)}} sáv részletei</h3>
   <table class="table">
     <thead>
       <tr>
@@ -41,7 +42,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let kitoltes of kitoltesek[kivalasztott]">
+      <tr *ngFor="let kitoltes of csoportositottKitoltesek[kivalasztottKitoltesCsoport]">
         <td>
           {{kitoltes.felhasznalo.name}}
         </td>

@@ -1,0 +1,36 @@
+/*kérdőív választás*/
+select {
+  font-size: 16px;
+}
+
+/*sáv szélesség változtatás*/
+.sav-szelesseg-ertek {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/*grafikon sáv*/
+.grafikon-sav {
+  margin-top: 10px;
+}
+
+.grafikon-sav-cim {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.grafikon-sav-tartalom {
+  font: 14px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  padding-right: 10px;
+  color: white;
+}
+
+/*általános*/
+.kontener {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
