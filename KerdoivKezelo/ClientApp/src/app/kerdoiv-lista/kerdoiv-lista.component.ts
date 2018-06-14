@@ -18,13 +18,7 @@ export class KerdoivListaComponent implements OnInit {
   isKereses: boolean = false;
   vasztottOpcio = "optionNev";
 
-  http: HttpClient;
-  baseUrl: string;
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.http = http;
-    this.baseUrl = baseUrl;
-  }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {  }
 
   ngOnInit(): void {
     this.getKerdoivek(this.oldalszam - 1);
