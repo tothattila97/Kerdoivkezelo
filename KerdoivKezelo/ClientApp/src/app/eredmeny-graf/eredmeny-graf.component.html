@@ -1,0 +1,60 @@
+<style>
+  .chart-element {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+  }
+</style>
+
+<h1>{{kerdoiv.nev}}</h1>
+
+<!-- sávszélesség változtatás -->
+<div>
+  <input type="button" value="-" (click)="savSzelessegValtoztatas(-1)" />
+  {{savSzelesseg}}
+  <input type="button" value="+" (click)="savSzelessegValtoztatas(1)" />
+</div>
+
+<!-- grafikon -->
+<div *ngFor="let kitoltesCsoport of kitoltesek; let i=index">
+  <div *ngIf="kitoltesCsoport.length > 0" (click)="reszletezes(i)">
+    <p>{{i*savSzelesseg}}-{{i*savSzelesseg+(savSzelesseg-1)}}:</p>
+    <div class="chart-element" [ngStyle]="{'width.px':  kitoltesCsoport.length * szelessegSzorzo}">
+      {{ kitoltesCsoport.length}}
+    </div>
+  </div>
+</div>
+
+<!-- részletek -->
+<div *ngIf="kivalasztott>=0">
+  <h2>{{kivalasztott*savSzelesseg}}-{{kivalasztott*savSzelesseg+(savSzelesseg-1)}} részletei:</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Név</th>
+        <th>Kitöltés kezdete</th>
+        <th>Kitöltés vége</th>
+        <th>Pontszám</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let kitoltes of kitoltesek[kivalasztott]">
+        <td>
+          {{kitoltes.felhasznalo.name}}
+        </td>
+        <td>
+          {{kitoltes.kitoltesKezdete}}
+        </td>
+        <td>
+          {{kitoltes.kitoltesVege}}
+        </td>
+        <td>
+          {{kitoltes.pontszam}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

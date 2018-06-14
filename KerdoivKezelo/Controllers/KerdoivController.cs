@@ -13,6 +13,7 @@ namespace KerdoivKezelo.Controllers
     [Route("api/[controller]/[action]")]
     public class KerdoivController : Controller
     {
+
         // GET: api/Kerdoiv
         [HttpGet]
         public IEnumerable<Kerdoiv> GetKerdoivek()
