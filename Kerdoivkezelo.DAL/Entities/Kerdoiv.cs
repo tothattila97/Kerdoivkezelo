@@ -18,7 +18,7 @@ namespace Kerdoivkezelo.DAL.Entities
 
         public int? MaxPontszam { get; set; }
 
-        public ICollection<Kerdes> Kerdesek { get; set; }
+        public ICollection<KerdoivKerdes> KerdoivKerdesek { get; set; }
 
         public int? ElertPontszamSzumma { get; set; }
     }
