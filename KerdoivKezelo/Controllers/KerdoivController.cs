@@ -17,27 +17,22 @@ namespace KerdoivKezelo.Controllers
         [HttpGet]
         public IEnumerable<Kerdoiv> GetKerdoivek()
         {
-            //return new string[] { "value1", "value2" };
             KerdoivService kerdoivService = new KerdoivService();
-            var mockData = kerdoivService.GetMockKerdoivek();
-            return mockData;
-
+            return kerdoivService.GetMockKerdoivek();
         }
 
-        [HttpGet("{querystr}")]
-        public IEnumerable<Kerdoiv> GetKerdoivekByMegnevezes(string querystr)
+        [HttpGet("{querystr}/{pagenumber}")]
+        public IEnumerable<Kerdoiv> GetKerdoivekByMegnevezes(string querystr, int pagenumber)
         {
             KerdoivService kerdoivService = new KerdoivService();
-            var kerdoivekMegnevezesselSzurve = kerdoivService.GetSzurtKerdoivekByMegnevezes(querystr);
-            return kerdoivekMegnevezesselSzurve;
+            return kerdoivService.GetSzurtKerdoivekByMegnevezes(querystr, pagenumber);
         }
 
-        [HttpGet("{alsoIdoKorlat}/{felsoIdoKorlat}")]
-        public IEnumerable<Kerdoiv> GetKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat)
+        [HttpGet("{alsoIdoKorlat}/{felsoIdoKorlat}/{oldalszam}")]
+        public IEnumerable<Kerdoiv> GetKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
         {
             KerdoivService kerdoivService = new KerdoivService();
-            var kerdoivekIdoIntervallummalSzurve = kerdoivService.GetSzurtKerdoivekByIdoIntervallum(alsoIdoKorlat, felsoIdokorlat);
-            return kerdoivekIdoIntervallummalSzurve;
+            return kerdoivService.GetSzurtKerdoivekByIdoIntervallum(alsoIdoKorlat, felsoIdokorlat, oldalszam);
         }
 
         [HttpGet("{oldalszam}")]
@@ -45,7 +40,6 @@ namespace KerdoivKezelo.Controllers
         {
             KerdoivService kerdoivService = new KerdoivService();
             return kerdoivService.GetKerdoivekAdottOldalon(oldalszam);
-            
         }
 
         [HttpGet]
@@ -55,7 +49,21 @@ namespace KerdoivKezelo.Controllers
             return kerdoivService.GetMaxOldalszam();
         }
 
+        //TODO:   paraméter:  querystring   return: hány oldalon át illeszkedik INT
+        [HttpGet("{querystring}")]
+        public int GetMatchingPagesNumber(string querystring)
+        {
+            KerdoivService kerdoivService = new KerdoivService();
+            return kerdoivService.GetNumberOfPagesByQuerystring(querystring);
+        }
 
+        [HttpGet("{alsoIdokorlat}/{felsoIdokorlat}")]
+        public int GetPagesNumberByTimeInterval(int alsoIdokorlat, int felsoIdokorlat)
+        {
+            KerdoivService kerdoivService = new KerdoivService();
+            return kerdoivService.GetNumberOfPagesByTimeInterval(alsoIdokorlat, felsoIdokorlat);
+        }
+       
         // GET: api/Kerdoiv/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)

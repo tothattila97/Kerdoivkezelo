@@ -54,8 +54,9 @@ namespace Kerdoivkezelo.DAL.Services
             return mockKerdoivek;
         }
 
-        public IList<Kerdoiv> GetSzurtKerdoivekByMegnevezes(string querystr)
+        public IList<Kerdoiv> GetSzurtKerdoivekByMegnevezes(string querystr, int pagenumber)
         {
+<<<<<<< HEAD
             //init();
             IList<Kerdoiv> result = new List<Kerdoiv>();
             foreach( var tempKerdoiv in mockKerdoivek)
@@ -66,12 +67,21 @@ namespace Kerdoivkezelo.DAL.Services
                 }
             }
             return result;
+=======
+            init();
+            return mockKerdoivek.Where(t => t.Nev.ToLower().Contains(querystr.ToLower())).Skip(pagenumber * oldalMeret).Take(oldalMeret).ToList();
+>>>>>>> master
         }
 
-        public IList<Kerdoiv> GetSzurtKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat)
+        public IList<Kerdoiv> GetSzurtKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
         {
+<<<<<<< HEAD
             //init();
             IList<Kerdoiv> result = new List<Kerdoiv>();
+=======
+            init();
+            /*IList<Kerdoiv> result = new List<Kerdoiv>();
+>>>>>>> master
             foreach(var tempKerdoiv in mockKerdoivek)
             {
                 if(alsoIdoKorlat <= tempKerdoiv.IdoKorlat && felsoIdokorlat >= tempKerdoiv.IdoKorlat)
@@ -79,7 +89,8 @@ namespace Kerdoivkezelo.DAL.Services
                     result.Add(tempKerdoiv);
                 }
             }
-            return result;
+            return result;*/
+            return mockKerdoivek.Where(t => (alsoIdoKorlat <= t.IdoKorlat && felsoIdokorlat >= t.IdoKorlat)).Skip(oldalszam*oldalMeret).Take(oldalMeret).ToList();
         }
 
         public IList<Kerdoiv> GetKerdoivekAdottOldalon(int oldalszam)
@@ -92,6 +103,18 @@ namespace Kerdoivkezelo.DAL.Services
         {
             //init();
             return (mockKerdoivek.Count / oldalMeret) + 1;
+        }
+
+        public int GetNumberOfPagesByQuerystring(string querystring)
+        {
+            init();
+            return (mockKerdoivek.Where(t => t.Nev.ToLower().Contains(querystring.ToLower())).Count() / oldalMeret)+1;
+        }
+
+        public int GetNumberOfPagesByTimeInterval(int alsoIdokorlat, int felsoIdokorlat)
+        {
+            init();
+            return (mockKerdoivek.Where(t => (alsoIdokorlat <= t.IdoKorlat && felsoIdokorlat >= t.IdoKorlat)).Count() / oldalMeret) + 1;
         }
     }
 }

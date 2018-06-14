@@ -2,15 +2,21 @@
 
 <p *ngIf="!kerdoivek"><em>Loading...</em></p>
 
+<p>
+  <label>Szűrés név szerint:</label>
+  <input #box (keyup.enter)="onEnter(box.value)"/>
+</p>
+
 <table class='table' *ngIf="kerdoivek">
   <thead>
     <tr>
-      <th>Kerdőív Név</th>
+      <th (click)="rendezNevSzerint()">Kerdőív Név</th>
       <th>Időkorlát</th>
       <th>Kitöltések száma</th>
       <th>Átlag pontszám</th>
       <th>Maximális pontszám</th>
       <th>Saját Eredmény</th>
+      <th>Megnyitás</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +27,25 @@
       <td>{{ kerdoiv.atlagPontszam }}</td>
       <td>{{ kerdoiv.maxPontszam }}</td>
       <td>{{ kerdoiv.eredmeny }}</td>
+      <td>
+        <button (click)="kerdoivMegnyitasa(kerdoiv.nev)">Kérdőív megynitása</button>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<p *ngIf="isKereses">
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="keresesiOldalszam===1" disabled>Előző oldal</button>
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="keresesiOldalszam > 1">Előző oldal</button>
+  <label *ngIf="isKereses"> {{ keresesiOldalszam }} / {{ utolsoOldal }} </label>
+  <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="keresesiOldalszam===utolsoOldal" disabled>Következő oldal</button>
+  <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="keresesiOldalszam < utolsoOldal">Következő oldal</button>
+</p>
+
+<p *ngIf="!isKereses">
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="oldalszam===1" disabled>Előző oldal</button>
+  <button id="btnElozo" (click)="elozoOldal()" *ngIf="oldalszam > 1">Előző oldal</button>
+  <label *ngIf="!isKereses"> {{ oldalszam }} / {{ utolsoOldal }}</label>
+  <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="oldalszam===utolsoOldal" disabled>Következő oldal</button>
+  <button id="btnKovetkezo" (click)="kovetkezoOldal()" *ngIf="oldalszam < utolsoOldal">Következő oldal</button>
+</p>
