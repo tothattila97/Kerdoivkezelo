@@ -9,6 +9,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { KerdoivListaComponent } from './kerdoiv-lista/kerdoiv-lista.component';
+import { BejelentkezesComponent } from './bejelentkezes/bejelentkezes.component';
+import { RegisztracioComponent } from './regisztracio/regisztracio.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { KerdoivListaComponent } from './kerdoiv-lista/kerdoiv-lista.component';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    KerdoivListaComponent
+    KerdoivListaComponent,
+    BejelentkezesComponent,
+    RegisztracioComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -26,6 +30,8 @@ import { KerdoivListaComponent } from './kerdoiv-lista/kerdoiv-lista.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'kerdoiv-lista', component: KerdoivListaComponent },
+      { path: 'bejelentkezes', component: BejelentkezesComponent },
+      { path: 'regisztracio', component: RegisztracioComponent }
     ])
   ],
   providers: [],
