@@ -10,6 +10,6 @@ namespace Kerdoivkezelo.DAL.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ObservableCollection<KerdoivKitoltese> KerdoivKitoltesek { get; set; }
+        public ObservableCollection<KerdoivKitoltes> KerdoivKitoltesek { get; set; }
     }
 }

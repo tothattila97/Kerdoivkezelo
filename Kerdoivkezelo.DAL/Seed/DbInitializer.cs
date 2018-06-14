@@ -10,6 +10,7 @@ namespace Kerdoivkezelo.DAL.Seed
     {
         public static void Initialize(KerdoivKezeloDbContext context)
         {
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             if (context.Kerdoivek.Any())
             {

@@ -14,8 +14,8 @@ namespace Kerdoivkezelo.DAL.Entities
 
         public virtual ICollection<ValaszOsszerendeles> Valaszlehetosegek { get; set; }
 
-        public virtual ICollection<ValaszOsszerendeles> HelyesValaszok { get; set; }
+        //public virtual ICollection<ValaszOsszerendeles> HelyesValaszok { get; set; }
 
-        public virtual ICollection<ValaszOsszerendeles> JeloltValaszok { get; set; }
+        //public virtual ICollection<ValaszOsszerendeles> JeloltValaszok { get; set; }
     }
 }

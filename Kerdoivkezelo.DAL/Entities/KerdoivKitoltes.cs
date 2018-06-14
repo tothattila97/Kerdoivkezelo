@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Kerdoivkezelo.DAL.Entities
 {
-    public class KerdoivKitoltese
+    public class KerdoivKitoltes
     {
         public int Id { get; set; }
         public int KerdoivId { get; set; }
@@ -13,6 +13,8 @@ namespace Kerdoivkezelo.DAL.Entities
 
         public int FelhasznaloId { get; set; }
         public Felhasznalo Felhasznalo { get; set; }
+
+        public ICollection<JeloltValasz> JeloltValaszok { get; set; }
 
         public DateTimeOffset? KitoltesKezdete { get; set; }
 
