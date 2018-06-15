@@ -49,7 +49,40 @@ namespace Kerdoivkezelo.DAL.Seed
             context.Kerdoivek.Add(k14);
             context.Kerdoivek.Add(k15);
             context.Kerdoivek.Add(k16);
+
+            AddKitoltesek(context);
+
             context.SaveChanges();
+        }
+
+        private static void AddKitoltesek(KerdoivKezeloDbContext context) {
+            //test9
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user1", 1, 10));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user2", 1, 0));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user3", 1, 7));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user4", 1, 9));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user5", 1, 3));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user6", 1, 13));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user7", 1, 7));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user8", 1, 16));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user9", 1, 17));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user10", 1, 11));
+            //test12
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user7", 2, 25));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user2", 2, 7));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user16", 2, 7));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user8", 2, 21));
+        }
+
+        private static KerdoivKitoltes KitoltesLetrehozas(string felhasznaloNev, int kerdoivId, int pontszam) {
+            return new KerdoivKitoltes()
+            {
+                KerdoivId = kerdoivId,
+                Pontszam = pontszam,
+                KitoltesKezdete = new DateTimeOffset(),
+                KitoltesVege = new DateTimeOffset(),
+                Felhasznalo = new Felhasznalo { Name = felhasznaloNev },
+            };
         }
     }
 }

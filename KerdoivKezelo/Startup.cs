@@ -26,7 +26,8 @@ namespace KerdoivKezelo
         {
             services.AddDbContext<KerdoivKezeloDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))))
-                .AddScoped<KerdoivService>();
+                .AddScoped<KerdoivService>()
+                .AddScoped<KitoltesService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
