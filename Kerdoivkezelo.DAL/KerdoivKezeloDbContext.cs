@@ -18,6 +18,7 @@ namespace Kerdoivkezelo.DAL
         public DbSet<ValaszOsszerendeles> ValaszOsszerendelesek{ get; set; }
         public DbSet<JeloltValasz> JeloltValaszok { get; set; }
         public DbSet<KerdoivKerdes> KerdoivKerdesek { get; set; }
+
         protected  override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

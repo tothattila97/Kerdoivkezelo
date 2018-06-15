@@ -10,12 +10,34 @@ namespace Kerdoivkezelo.DAL.Seed
     {
         public static void Initialize(KerdoivKezeloDbContext context)
         {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+
+            //context.Database.EnsureDeleted();
+            //context.Database.EnsureCreated();
             if (context.Kerdoivek.Any())
             {
                 return;   // DB has been seeded
             }
+            var kerdeselemek = Enumerable.Range(1, 5).Select(x =>
+                new KerdesElem
+                {
+                    Szoveg = "Kerdesszoveg" + x,
+                });
+            context.KerdesElemek.AddRange(kerdeselemek);
+            context.SaveChanges();
+
+            var kerdesek = Enumerable.Range(1, 5).Select(x =>
+                new Kerdes { }
+
+             );
+            context.Kerdesek.AddRange(kerdesek);
+            context.SaveChanges();
+
+            var valaszelemek = Enumerable.Range(1, 5).Select(x => new ValaszElem
+            {
+                Tartalom = "valaszelemek" + x,
+            });
+            context.ValaszElemek.AddRange(valaszelemek);
+            context.SaveChanges();
 
             Kerdoiv k1 = new Kerdoiv { Nev = "könnyű", IdoKorlat = 30, KitoltesSzam = 10, AtlagPontszam = 30, ElertPontszamSzumma = 170, MaxPontszam = 21 };
             Kerdoiv k2 = new Kerdoiv { Nev = "brutál", IdoKorlat = 60, KitoltesSzam = 4, AtlagPontszam = 45, ElertPontszamSzumma = 220, MaxPontszam = 33 };
@@ -50,6 +72,59 @@ namespace Kerdoivkezelo.DAL.Seed
             context.Kerdoivek.Add(k15);
             context.Kerdoivek.Add(k16);
             context.SaveChanges();
+
+            context.AddRange(
+                new KerdesOsszerendeles { KerdesId = 1, KerdesElemId = 1 },
+                new KerdesOsszerendeles { KerdesId = 2, KerdesElemId = 1 },
+                new KerdesOsszerendeles { KerdesId = 3, KerdesElemId = 1 },
+                new KerdesOsszerendeles { KerdesId = 4, KerdesElemId = 1 },
+                new KerdesOsszerendeles { KerdesId = 5, KerdesElemId = 1 },
+                new KerdesOsszerendeles { KerdesId = 1, KerdesElemId = 2 },
+                new KerdesOsszerendeles { KerdesId = 2, KerdesElemId = 2 },
+                new KerdesOsszerendeles { KerdesId = 2, KerdesElemId = 3 },
+                new KerdesOsszerendeles { KerdesId = 3, KerdesElemId = 4 }
+                );
+            context.SaveChanges();
+
+            ValaszOsszerendeles v1 = new ValaszOsszerendeles { ValaszElemId = 1, KerdesId = 1 };
+            ValaszOsszerendeles v2 = new ValaszOsszerendeles { ValaszElemId = 2, KerdesId = 1 };
+            ValaszOsszerendeles v3 = new ValaszOsszerendeles { ValaszElemId = 3, KerdesId = 1 };
+            ValaszOsszerendeles v4 = new ValaszOsszerendeles { ValaszElemId = 4, KerdesId = 1 };
+            ValaszOsszerendeles v5 = new ValaszOsszerendeles { ValaszElemId = 1, KerdesId = 2 };
+            ValaszOsszerendeles v6 = new ValaszOsszerendeles { ValaszElemId = 2, KerdesId = 2 };
+            ValaszOsszerendeles v7 = new ValaszOsszerendeles { ValaszElemId = 3, KerdesId = 2 };
+            ValaszOsszerendeles v9 = new ValaszOsszerendeles { ValaszElemId = 4, KerdesId = 2 };
+            ValaszOsszerendeles v10 = new ValaszOsszerendeles { ValaszElemId = 1, KerdesId = 3 };
+            ValaszOsszerendeles v11 = new ValaszOsszerendeles { ValaszElemId = 2, KerdesId = 3 };
+            ValaszOsszerendeles v12 = new ValaszOsszerendeles { ValaszElemId = 1, KerdesId = 4 };
+            ValaszOsszerendeles v13 = new ValaszOsszerendeles { ValaszElemId = 1, KerdesId = 5 };
+            context.ValaszOsszerendelesek.Add(v1);
+            context.ValaszOsszerendelesek.Add(v2);
+            context.ValaszOsszerendelesek.Add(v3);
+            context.ValaszOsszerendelesek.Add(v4);
+            context.ValaszOsszerendelesek.Add(v5);
+            context.ValaszOsszerendelesek.Add(v6);
+            context.ValaszOsszerendelesek.Add(v7);
+            context.ValaszOsszerendelesek.Add(v9);
+            context.ValaszOsszerendelesek.Add(v10);
+            context.ValaszOsszerendelesek.Add(v11);
+            context.ValaszOsszerendelesek.Add(v12);
+            context.ValaszOsszerendelesek.Add(v13);
+            context.SaveChanges();
+
+
+            context.AddRange(
+                new KerdoivKerdes { KerdoivId = 1, KerdesId = 1 },
+                new KerdoivKerdes { KerdoivId = 1, KerdesId = 2 },
+                new KerdoivKerdes { KerdoivId = 1, KerdesId = 3 },
+                new KerdoivKerdes { KerdoivId = 1, KerdesId = 4 },
+                new KerdoivKerdes { KerdoivId = 1, KerdesId = 5 }
+                );
+            context.SaveChanges();
+
+
+
+
         }
     }
 }

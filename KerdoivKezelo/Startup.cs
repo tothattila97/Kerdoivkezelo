@@ -1,5 +1,6 @@
 using Kerdoivkezelo.DAL;
 using Kerdoivkezelo.DAL.Services;
+using KerdoivKezelo.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace KerdoivKezelo
@@ -27,6 +29,18 @@ namespace KerdoivKezelo
             services.AddDbContext<KerdoivKezeloDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))))
                 .AddScoped<KerdoivService>();
+
+            services.AddDbContext<KerdoivKezeloDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))))
+                .AddScoped<KerdesService>();
+
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+            });
+
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
