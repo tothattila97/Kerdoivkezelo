@@ -10,8 +10,8 @@ namespace Kerdoivkezelo.DAL.Seed
     {
         public static void Initialize(KerdoivKezeloDbContext context)
         {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            //context.Database.EnsureDeleted();
+            //context.Database.EnsureCreated();
             InitKerdoivek(context);
             InitKerdoivKerdesekkelEsValaszokkal(context);
         }
@@ -58,35 +58,8 @@ namespace Kerdoivkezelo.DAL.Seed
             context.SaveChanges();
         }
 
+
         public static void InitKerdoivKerdesekkelEsValaszokkal(KerdoivKezeloDbContext context)
-        {
-            var kerdesElem = new KerdesElem() { Szoveg = "2+2=?" };
-            context.KerdesElemek.Add(kerdesElem);
-
-            var valaszElem1 = new ValaszElem() { Tartalom = "4" };
-            var valaszElem2 = new ValaszElem() { Tartalom = "quickmaffs" };
-            context.ValaszElemek.Add(valaszElem1);
-            context.ValaszElemek.Add(valaszElem2);
-
-            var kerdes = new Kerdes();
-            context.Kerdesek.Add(kerdes);
-
-            var kerdesOsszerendeles = new KerdesOsszerendeles() { KerdesId = kerdes.Id, KerdesElemId = kerdesElem.Id };
-            context.KerdesOsszerendelesek.Add(kerdesOsszerendeles);
-
-            var valaszOsszerendeles1 = new ValaszOsszerendeles() { Helyes = true, KerdesId = kerdes.Id, ValaszElemId = valaszElem1.Id };
-            var valaszOsszerendeles2 = new ValaszOsszerendeles() { Helyes = false, KerdesId = kerdes.Id, ValaszElemId = valaszElem2.Id };
-            context.ValaszOsszerendelesek.Add(valaszOsszerendeles1);
-            context.ValaszOsszerendelesek.Add(valaszOsszerendeles2);
-
-            var kerdoiv = new Kerdoiv { Nev = "TESZT-KÉRDÉSEKKEL", IdoKorlat = 30, KitoltesSzam = 0, AtlagPontszam = 0, ElertPontszamSzumma = 0, MaxPontszam = 0 };
-            kerdoiv.Kerdesek.Add(kerdes);
-            context.Kerdoivek.Add(kerdoiv);
-
-            context.SaveChanges();
-        }
-
-        public static void InitKerdoivKerdesekkelEsValaszokkal2(KerdoivKezeloDbContext context)
         {
             if (context.Kerdoivek.Any(k => k.Nev == "TESZT-KÉRDÉSEKKEL"))
             {
@@ -94,62 +67,49 @@ namespace Kerdoivkezelo.DAL.Seed
             }
 
             var kerdesElemek = new List<KerdesElem>();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 kerdesElemek.Add(new KerdesElem() { Szoveg = $"{i}. Kérdés"});
                 context.KerdesElemek.Add(kerdesElemek[i]);
             }
 
             var valaszElemek = new List<ValaszElem>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 40; i++)
             {
                 valaszElemek.Add(new ValaszElem() { Tartalom = $"{i}. Válasz" });
+                context.ValaszElemek.Add(valaszElemek[i]);
             }
 
             var kerdesek = new List<Kerdes>();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 kerdesek.Add(new Kerdes());
+                context.Kerdesek.Add(kerdesek[i]);
             }
 
             var kerdesOsszerendelesek = new List<KerdesOsszerendeles>();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
-                kerdesOsszerendelesek.Add(new KerdesOsszerendeles() { Kerdes = kerdesek[i], KerdesElem = kerdesElemek[i] });
+                kerdesOsszerendelesek.Add(new KerdesOsszerendeles() { KerdesId = kerdesek[i].Id, KerdesElemId = kerdesElemek[i].Id });
                 context.KerdesOsszerendelesek.Add(kerdesOsszerendelesek[i]);
             }
 
             var valaszOsszerendelesek = new List<ValaszOsszerendeles>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 40; i++)
             {
-                if (i % 10 == 0) valaszOsszerendelesek.Add(new ValaszOsszerendeles() { Helyes=true, Kerdes = kerdesek[i/4], ValaszElem = valaszElemek[i] });
-                else valaszOsszerendelesek.Add(new ValaszOsszerendeles() { Helyes = false, Kerdes = kerdesek[i/4], ValaszElem = valaszElemek[i] });
+                if (i % 10 == 0) valaszOsszerendelesek.Add(new ValaszOsszerendeles() { Helyes=true, KerdesId = kerdesek[i/4].Id, ValaszElemId = valaszElemek[i].Id });
+                else valaszOsszerendelesek.Add(new ValaszOsszerendeles() { Helyes = false, KerdesId = kerdesek[i/4].Id, ValaszElemId = valaszElemek[i].Id });
                 context.ValaszOsszerendelesek.Add(valaszOsszerendelesek[i]);
             }
 
-            for (int i = 0; i < 1; i++)
-            {
-                kerdesek[i].KerdesOsszerendelesek.Add(kerdesOsszerendelesek[i]);
-                for (int j = 0; j < 2; j++)
-                {
-                    kerdesek[i].Valaszlehetosegek.Add(valaszOsszerendelesek[i * 4 + j]);
-                }
-                context.Kerdesek.Add(kerdesek[i]);
-            }
-
-            for (int i = 0; i < 2; i++)
-            {
-                valaszElemek[i].ValaszOsszerendelesek.Add(valaszOsszerendelesek[i]);
-                context.ValaszElemek.Add(valaszElemek[i]);
-            }
-
             Kerdoiv kerdoiv = new Kerdoiv { Nev = "TESZT-KÉRDÉSEKKEL", IdoKorlat = 30, KitoltesSzam = 0, AtlagPontszam = 0, ElertPontszamSzumma = 0, MaxPontszam = 0, };
-            kerdoiv.Kerdesek = kerdesek;
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    kerdoiv.Kerdesek.Add(kerdesek[i]);
-            //}
             context.Kerdoivek.Add(kerdoiv);
+
+            for (int i = 0; i < 10; i++)
+            {
+                context.KerdoivKerdesek.Add(new KerdoivKerdes() { KerdesId = kerdesek[i].Id, KerdoivId = kerdoiv.Id });
+            }
+
             context.SaveChanges();
         }
     }

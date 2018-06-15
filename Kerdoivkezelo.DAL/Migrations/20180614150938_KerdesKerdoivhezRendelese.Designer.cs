@@ -4,14 +4,16 @@ using Kerdoivkezelo.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kerdoivkezelo.DAL.Migrations
 {
     [DbContext(typeof(KerdoivKezeloDbContext))]
-    partial class KerdoivKezeloDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180614150938_KerdesKerdoivhezRendelese")]
+    partial class KerdesKerdoivhezRendelese
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,7 +170,7 @@ namespace Kerdoivkezelo.DAL.Migrations
 
                     b.Property<bool>("Helyes");
 
-                    b.Property<int?>("JeloltValaszId");
+                    b.Property<int>("JeloltValaszId");
 
                     b.HasKey("ValaszElemId", "KerdesId");
 
@@ -227,9 +229,10 @@ namespace Kerdoivkezelo.DAL.Migrations
 
             modelBuilder.Entity("Kerdoivkezelo.DAL.Entities.ValaszOsszerendeles", b =>
                 {
-                    b.HasOne("Kerdoivkezelo.DAL.Entities.JeloltValasz")
+                    b.HasOne("Kerdoivkezelo.DAL.Entities.JeloltValasz", "JeloltValasz")
                         .WithMany("ValaszOsszerendelesek")
-                        .HasForeignKey("JeloltValaszId");
+                        .HasForeignKey("JeloltValaszId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Kerdoivkezelo.DAL.Entities.Kerdes", "Kerdes")
                         .WithMany("Valaszlehetosegek")

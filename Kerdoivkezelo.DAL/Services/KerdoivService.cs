@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Kerdoivkezelo.DAL.Services
 {
@@ -61,10 +62,10 @@ namespace Kerdoivkezelo.DAL.Services
             return null;
         }
 
-        public IList<Kerdoiv> GetSzurtKerdoivekByMegnevezes(string querystr, int pagenumber)
+        public List<Kerdoiv> GetSzurtKerdoivekByMegnevezes(string querystr, int pagenumber)
         {
-            //init();
-            return Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(querystr.ToLower())).Skip(pagenumber * oldalMeret).Take(oldalMeret).ToList();
+            var kerdoivek = Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(querystr.ToLower())).Skip(pagenumber * oldalMeret).Take(oldalMeret).ToList();
+            return kerdoivek;
         }
 
         public IList<Kerdoiv> GetSzurtKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
@@ -96,5 +97,28 @@ namespace Kerdoivkezelo.DAL.Services
             //init();
             return (Context.Kerdoivek.Where(t => (alsoIdokorlat <= t.IdoKorlat && felsoIdokorlat >= t.IdoKorlat)).Count() / oldalMeret) + 1;
         }
+
+        public async Task<Kerdoiv> Create(Kerdoiv kerdoiv)
+        {
+            Context.Add(kerdoiv);
+            await Context.SaveChangesAsync();
+            return kerdoiv;
+        }
+
+        public void Delete(int id)
+        {
+            var kerdoiv = Context.Kerdoivek.SingleOrDefault(k => k.Id == id);
+            Context.Kerdoivek.Remove(kerdoiv);
+            Context.SaveChanges();
+        }
+
+        public async Task<Kerdoiv> Edit(int id, Kerdoiv _kerdoiv)
+        {
+            Context.Update(_kerdoiv);
+            await Context.SaveChangesAsync();
+
+            return _kerdoiv;
+        }
+
     }
 }

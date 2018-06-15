@@ -9,22 +9,16 @@ export class KerdoivListaComponent implements OnInit {
   public kerdoivek: Kerdoiv[];
   utolsoOldal: number;
   oldalszam = 1;
-  keresesiOldalszam = 1;
 
   //szűréshez használt értékek
+  keresesiOldalszam = 1;
   szuroStr: string = "";
   kezdoIdo: number = 0;
   vegsoIdo: number = 0;
   isKereses: boolean = false;
   vasztottOpcio = "optionNev";
 
-  http: HttpClient;
-  baseUrl: string;
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.http = http;
-    this.baseUrl = baseUrl;
-  }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {  }
 
   ngOnInit(): void {
     this.getKerdoivek(this.oldalszam - 1);
@@ -112,6 +106,14 @@ export class KerdoivListaComponent implements OnInit {
   }
 
   kerdoivMegnyitasa(nev: string): void {
+
+  }
+
+  kerdoivSzerkesztese(nev: string): void {
+
+  }
+
+  kerdoivStatisztikak(nev: string): void {
 
   }
 
