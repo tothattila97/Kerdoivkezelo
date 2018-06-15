@@ -9,14 +9,16 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { KerdoivListaComponent } from './kerdoiv-lista/kerdoiv-lista.component';
 import { BejelentkezesComponent } from './bejelentkezes/bejelentkezes.component';
 import { RegisztracioComponent } from './regisztracio/regisztracio.component';
+import { EredmenyGrafComponent } from './eredmeny-graf/eredmeny-graf.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavMenuComponent,
+      AppComponent,
+      NavMenuComponent,
     KerdoivListaComponent,
     BejelentkezesComponent,
     RegisztracioComponent
+    EredmenyGrafComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -25,7 +27,8 @@ import { RegisztracioComponent } from './regisztracio/regisztracio.component';
     RouterModule.forRoot([
       { path: '', component: KerdoivListaComponent },
       { path: 'bejelentkezes', component: BejelentkezesComponent },
-      { path: 'regisztracio', component: RegisztracioComponent }
+      { path: 'regisztracio', component: RegisztracioComponent },
+      { path: 'eredmeny-graf', component: EredmenyGrafComponent }
     ])
   ],
   providers: [],
