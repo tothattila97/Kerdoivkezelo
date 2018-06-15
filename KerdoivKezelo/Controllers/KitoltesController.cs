@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Kerdoivkezelo.DAL.Entities;
 using Kerdoivkezelo.DAL.Services;
 using Microsoft.AspNetCore.Mvc;
-using NetCoreAngular.Data.Kerdoiv;
 
 namespace KerdoivKezelo.Controllers
 {
@@ -12,6 +12,7 @@ namespace KerdoivKezelo.Controllers
     [Route("api/[controller]/[action]")]
     public class KitoltesController : Controller
     {
+
         [HttpGet]
         public IEnumerable<Kerdoiv> GetKerdoivek()
         {
@@ -20,7 +21,7 @@ namespace KerdoivKezelo.Controllers
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<KerdoivKitoltese> GetKitoltesek(int id)
+        public IEnumerable<KerdoivKitoltes> GetKitoltesek(int id)
         {
             KitoltesService ks = new KitoltesService();
             return ks.GetKitoltesek(id);
