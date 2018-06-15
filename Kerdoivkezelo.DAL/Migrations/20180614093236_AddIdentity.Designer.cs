@@ -4,14 +4,16 @@ using Kerdoivkezelo.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kerdoivkezelo.DAL.Migrations
 {
     [DbContext(typeof(KerdoivKezeloDbContext))]
-    partial class KerdoivKezeloDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180614093236_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +93,7 @@ namespace Kerdoivkezelo.DAL.Migrations
 
                     b.HasIndex("KerdoivKitolteseFelhasznaloId", "KerdoivKitolteseKerdoivId");
 
-                    b.ToTable("JeloltValaszok");
+                    b.ToTable("JeloltValasz");
                 });
 
             modelBuilder.Entity("Kerdoivkezelo.DAL.Entities.Kerdes", b =>
@@ -100,7 +102,11 @@ namespace Kerdoivkezelo.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("KerdoivId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("KerdoivId");
 
                     b.ToTable("Kerdesek");
                 });
@@ -154,19 +160,6 @@ namespace Kerdoivkezelo.DAL.Migrations
                     b.ToTable("Kerdoivek");
                 });
 
-            modelBuilder.Entity("Kerdoivkezelo.DAL.Entities.KerdoivKerdes", b =>
-                {
-                    b.Property<int>("KerdesId");
-
-                    b.Property<int>("KerdoivId");
-
-                    b.HasKey("KerdesId", "KerdoivId");
-
-                    b.HasIndex("KerdoivId");
-
-                    b.ToTable("KerdoivKerdesek");
-                });
-
             modelBuilder.Entity("Kerdoivkezelo.DAL.Entities.KerdoivKitoltes", b =>
                 {
                     b.Property<int>("FelhasznaloId");
@@ -211,7 +204,7 @@ namespace Kerdoivkezelo.DAL.Migrations
 
                     b.Property<bool>("Helyes");
 
-                    b.Property<int?>("JeloltValaszId");
+                    b.Property<int>("JeloltValaszId");
 
                     b.HasKey("ValaszElemId", "KerdesId");
 
@@ -337,6 +330,13 @@ namespace Kerdoivkezelo.DAL.Migrations
                         .HasForeignKey("KerdoivKitolteseFelhasznaloId", "KerdoivKitolteseKerdoivId");
                 });
 
+            modelBuilder.Entity("Kerdoivkezelo.DAL.Entities.Kerdes", b =>
+                {
+                    b.HasOne("Kerdoivkezelo.DAL.Entities.Kerdoiv")
+                        .WithMany("Kerdesek")
+                        .HasForeignKey("KerdoivId");
+                });
+
             modelBuilder.Entity("Kerdoivkezelo.DAL.Entities.KerdesOsszerendeles", b =>
                 {
                     b.HasOne("Kerdoivkezelo.DAL.Entities.KerdesElem", "KerdesElem")
@@ -347,19 +347,6 @@ namespace Kerdoivkezelo.DAL.Migrations
                     b.HasOne("Kerdoivkezelo.DAL.Entities.Kerdes", "Kerdes")
                         .WithMany("KerdesOsszerendelesek")
                         .HasForeignKey("KerdesId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Kerdoivkezelo.DAL.Entities.KerdoivKerdes", b =>
-                {
-                    b.HasOne("Kerdoivkezelo.DAL.Entities.Kerdes", "Kerdes")
-                        .WithMany("KerdoivKerdesek")
-                        .HasForeignKey("KerdesId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Kerdoivkezelo.DAL.Entities.Kerdoiv", "Kerdoiv")
-                        .WithMany("KerdoivKerdesek")
-                        .HasForeignKey("KerdoivId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -378,9 +365,10 @@ namespace Kerdoivkezelo.DAL.Migrations
 
             modelBuilder.Entity("Kerdoivkezelo.DAL.Entities.ValaszOsszerendeles", b =>
                 {
-                    b.HasOne("Kerdoivkezelo.DAL.Entities.JeloltValasz")
+                    b.HasOne("Kerdoivkezelo.DAL.Entities.JeloltValasz", "JeloltValasz")
                         .WithMany("ValaszOsszerendelesek")
-                        .HasForeignKey("JeloltValaszId");
+                        .HasForeignKey("JeloltValaszId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Kerdoivkezelo.DAL.Entities.Kerdes", "Kerdes")
                         .WithMany("Valaszlehetosegek")
