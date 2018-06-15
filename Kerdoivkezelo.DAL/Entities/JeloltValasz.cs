@@ -1,15 +1,14 @@
-﻿using Kerdoivkezelo.DAL.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace Kerdoivkezelo.DAL.Entities
 {
-    public class ValaszElem
+    public class JeloltValasz
     {
         public int Id { get; set; }
+        public int KerdoivKitoltesekId { get; set; }
+        public KerdoivKitoltes KerdoivKitoltese{ get; set; }
         public ICollection<ValaszOsszerendeles> ValaszOsszerendelesek { get; set; }
-        public string Tartalom { get; set; }
     }
 }

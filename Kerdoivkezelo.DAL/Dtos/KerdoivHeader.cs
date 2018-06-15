@@ -1,25 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Kerdoivkezelo.DAL.Entities
+namespace Kerdoivkezelo.DAL.Dtos
 {
-    public class Kerdoiv
+    public class KerdoivHeader
     {
-        public int Id { get; set; }
         public string Nev { get; set; }
-
         public int? IdoKorlat { get; set; }
-
         public int? KitoltesSzam { get; set; }
-
         public double? AtlagPontszam { get; set; }
-
         public int? MaxPontszam { get; set; }
-
-        public ICollection<KerdoivKerdes> KerdoivKerdesek { get; set; }
-
+        public ICollection<string> Kerdesek { get; set; }
         public int? ElertPontszamSzumma { get; set; }
     }
 }

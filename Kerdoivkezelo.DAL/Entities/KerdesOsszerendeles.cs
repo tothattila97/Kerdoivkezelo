@@ -1,13 +1,13 @@
-﻿using NetCoreAngular.Data.Kerdoiv;
+﻿using Kerdoivkezelo.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Kerdoivkezelo.DAL.Entities
 {
     public class KerdesOsszerendeles
     {
-        public int Id { get; set; }
         public int KerdesId { get; set; }
         public Kerdes Kerdes{ get; set; }
 

@@ -1,20 +1,18 @@
 ﻿using Kerdoivkezelo.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCoreAngular.Data.Kerdoiv
+namespace Kerdoivkezelo.DAL.Entities
 {
     public class Kerdes
     {
         public int Id { get; set; }
-        public ICollection<KerdesOsszerendeles> GetKerdesOsszerendelesek{ get; set; }
+        public virtual ICollection<KerdesOsszerendeles> KerdesOsszerendelesek{ get; set; }
 
-        public ICollection<ValaszOsszerendeles> Valaszlehetosegek { get; set; }
-
-        public ICollection<ValaszOsszerendeles> HelyesValaszok { get; set; }
-
-        public ICollection<ValaszOsszerendeles> JeloltValaszok { get; set; }
+        public virtual ICollection<ValaszOsszerendeles> Valaszlehetosegek { get; set; }
+        public virtual ICollection<KerdoivKerdes>  KerdoivKerdesek { get; set; }
     }
 }

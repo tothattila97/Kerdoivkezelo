@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCoreAngular.Data.Kerdoiv
+namespace Kerdoivkezelo.DAL.Entities
 {
-    public class KerdoivKitoltese
+    public class KerdoivKitoltes
     {
         public int Id { get; set; }
         public int KerdoivId { get; set; }
@@ -13,6 +13,8 @@ namespace NetCoreAngular.Data.Kerdoiv
 
         public int FelhasznaloId { get; set; }
         public Felhasznalo Felhasznalo { get; set; }
+
+        public ICollection<JeloltValasz> JeloltValaszok { get; set; }
 
         public DateTimeOffset? KitoltesKezdete { get; set; }
 

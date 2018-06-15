@@ -6,18 +6,18 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { KerdoivListaComponent } from './kerdoiv-lista/kerdoiv-lista.component';
+import { BejelentkezesComponent } from './bejelentkezes/bejelentkezes.component';
+import { RegisztracioComponent } from './regisztracio/regisztracio.component';
 import { EredmenyGrafComponent } from './eredmeny-graf/eredmeny-graf.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
+      AppComponent,
+      NavMenuComponent,
     KerdoivListaComponent,
+    BejelentkezesComponent,
+    RegisztracioComponent
     EredmenyGrafComponent
   ],
   imports: [
@@ -25,9 +25,9 @@ import { EredmenyGrafComponent } from './eredmeny-graf/eredmeny-graf.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'kerdoiv-lista', component: KerdoivListaComponent },
+      { path: '', component: KerdoivListaComponent },
+      { path: 'bejelentkezes', component: BejelentkezesComponent },
+      { path: 'regisztracio', component: RegisztracioComponent },
       { path: 'eredmeny-graf', component: EredmenyGrafComponent }
     ])
   ],
