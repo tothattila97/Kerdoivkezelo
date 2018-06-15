@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kerdoivkezelo.DAL.Entities
 {
-    public class Felhasznalo : IdentityUser<int>
+    public class Felhasznalo : IdentityUser
     {
         public string Name { get; set; }
         public string Age { get; set;}

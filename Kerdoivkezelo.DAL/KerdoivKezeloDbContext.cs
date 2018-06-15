@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Kerdoivkezelo.DAL
 {
-    public class KerdoivKezeloDbContext : IdentityDbContext<Felhasznalo, IdentityRole<int>, int>
+    public class KerdoivKezeloDbContext : IdentityDbContext<Felhasznalo>
     {
         public KerdoivKezeloDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Kerdes> Kerdesek { get; set; }
@@ -18,6 +18,7 @@ namespace Kerdoivkezelo.DAL
         public DbSet<KerdoivKitoltes> KerdoivKitoltesek { get; set; }
         public DbSet<ValaszElem> ValaszElemek{ get; set; }
         public DbSet<ValaszOsszerendeles> ValaszOsszerendelesek{ get; set; }
+        public DbSet<Felhasznalo> Felhasznalok { get; set; }
         protected  override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
