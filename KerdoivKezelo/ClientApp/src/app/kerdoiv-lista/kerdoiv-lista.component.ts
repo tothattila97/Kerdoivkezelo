@@ -9,9 +9,9 @@ export class KerdoivListaComponent implements OnInit {
   public kerdoivek: Kerdoiv[];
   utolsoOldal: number;
   oldalszam = 1;
-  keresesiOldalszam = 1;
 
   //szűréshez használt értékek
+  keresesiOldalszam = 1;
   szuroStr: string = "";
   kezdoIdo: number = 0;
   vegsoIdo: number = 0;
@@ -106,6 +106,14 @@ export class KerdoivListaComponent implements OnInit {
   }
 
   kerdoivMegnyitasa(nev: string): void {
+
+  }
+
+  kerdoivSzerkesztese(nev: string): void {
+
+  }
+
+  kerdoivStatisztikak(nev: string): void {
 
   }
 
