@@ -13,18 +13,23 @@ namespace KerdoivKezelo.Controllers
     public class KitoltesController : Controller
     {
 
+        public KitoltesService KitoltesService { get; }
+
+        public KitoltesController(KitoltesService kitoltesService)
+        {
+            KitoltesService = kitoltesService;
+        }
+
         [HttpGet]
         public IEnumerable<Kerdoiv> GetKerdoivek()
         {
-            KitoltesService ks = new KitoltesService();
-            return ks.GetKerdoivek();
+            return KitoltesService.GetKerdoivek();
         }
 
         [HttpGet("{id}")]
         public IEnumerable<KerdoivKitoltes> GetKitoltesek(int id)
         {
-            KitoltesService ks = new KitoltesService();
-            return ks.GetKitoltesek(id);
+            return KitoltesService.GetKitoltesek(id);
         }
     }
 }
