@@ -1,0 +1,15 @@
+<h1>{{kerdoiv.nev}}</h1>
+<form class=kerdes-block *ngFor="let kerdes of kerdoiv.kerdesek; let i = index;">
+  <h2>{{kerdes.kerdes}}</h2>
+  <form [ngSwitch]="kerdes.tipus">
+    <div *ngFor="let valasz of kerdes.valaszok; let j = index;">
+      <div>
+          <input class="float-right" *ngSwitchCase="'tobbszoros'" type="checkbox" name="valasz-{{i}}" id={{i}}-{{j}}>
+          <input class="float-right" *ngSwitchCase="'egyszeru'" type="radio" name="valasz-{{i}}" id={{i}}-{{j}}>
+          <label for="{{i}}-{{j}}">{{valasz}}</label>
+      </div>
+    </div>
+    <input *ngSwitchCase="'szoveges' || 'szam'" type="text" name="valasz-{{i}}">
+    <button type="submit">Válaszol</button>
+  </form>
+</form>
