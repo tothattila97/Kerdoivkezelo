@@ -1,0 +1,61 @@
+<!-- kérdőív változtatás -->
+<div class="kontener">
+  <h3>Kérdőív választás</h3>
+  <select (change)="kerdoivValtas($event)">
+    <option *ngFor="let kerdoiv of kerdoivek; let i=index">
+      {{kerdoiv.nev}}
+    </option>
+  </select>
+</div>
+
+<!-- sávszélesség változtatás -->
+<div class="kontener">
+  <h3>Sáv szélesség váltás</h3>
+  <input type="button" value="-" (click)="savSzelessegValtoztatas(-1)" [disabled]="savSzelesseg==1" />
+  <span class="sav-szelesseg-ertek">{{savSzelesseg}}</span>
+  <input type="button" value="+" (click)="savSzelessegValtoztatas(1)" />
+</div>
+
+<!-- grafikon -->
+<div class="kontener">
+  <h3>Grafikon</h3>
+  <div *ngFor="let kitoltesCsoport of csoportositottKitoltesek; let i=index">
+    <div *ngIf="kitoltesCsoport.length > 0" (click)="reszletezes(i)" class="grafikon-sav">
+      <span class="grafikon-sav-cim">{{getCsoportNev(i)}}:</span>
+      <div class="grafikon-sav-tartalom" [ngStyle]="{'width.%': 100 * kitoltesCsoport.length / maxCsoportMeret}">
+        {{ kitoltesCsoport.length}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- részletek -->
+<div *ngIf="kivalasztottKitoltesCsoportIndex>=0" class="kontener">
+  <h3>{{getCsoportNev(kivalasztottKitoltesCsoportIndex)}} sáv kitöltői</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Név</th>
+        <th>Kitöltés kezdete</th>
+        <th>Kitöltés vége</th>
+        <th>Pontszám</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let kitoltes of csoportositottKitoltesek[kivalasztottKitoltesCsoportIndex]">
+        <td>
+          {{kitoltes.felhasznalo.name}}
+        </td>
+        <td>
+          {{kitoltes.kitoltesKezdete}}
+        </td>
+        <td>
+          {{kitoltes.kitoltesVege}}
+        </td>
+        <td>
+          {{kitoltes.pontszam}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
