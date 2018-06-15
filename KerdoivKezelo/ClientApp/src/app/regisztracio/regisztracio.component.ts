@@ -23,12 +23,11 @@ export class RegisztracioComponent implements OnInit {
     this.felhasznalo = new Felhasznalo();
 
     this.regisztracioForm = new FormGroup({
-      'felhasznaloNev': new FormControl(this.felhasznalo.felhasznaloNev, Validators.required),
       'email': new FormControl(this.felhasznalo.email, [
         Validators.required,
         Validators.pattern("[^ @]*@[^ @]*")
       ]),
-      'jelszo': new FormControl(this.felhasznalo.jelszo, [
+      'jelszo': new FormControl(this.felhasznalo.password, [
         Validators.minLength(8),
         Validators.required
       ]),
@@ -40,7 +39,7 @@ export class RegisztracioComponent implements OnInit {
   }
 
   isJelszoEgyezik(): boolean {
-    if (this.felhasznalo.jelszo !== this.jelszoUjra) {
+    if (this.felhasznalo.password !== this.jelszoUjra) {
       return false;
     }
     return true;

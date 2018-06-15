@@ -1,5 +1,6 @@
 export class Felhasznalo {
-  felhasznaloNev: string = "";
+  firstName: string = "";
+  lastName: string = "";
   email: string = "";
-  jelszo: string = "";
+  password: string = "";
 }

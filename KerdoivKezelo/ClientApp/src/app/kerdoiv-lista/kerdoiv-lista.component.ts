@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class KerdoivListaComponent implements OnInit {
   public kerdoivek: Kerdoiv[];
-  utolsoOldal: number;
+  utolsoOldal: number = 1;
   oldalszam = 1;
 
   //szűréshez használt értékek

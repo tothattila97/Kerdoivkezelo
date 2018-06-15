@@ -5,8 +5,12 @@
 
   <form>
     <div class="form-group">
-      <label for="felhasznaloNev">Felhasználónév</label>
-      <input type="text" class="form-control" name="felhasznaloNev" [(ngModel)]="felhasznalo.felhasznaloNev" />
+      <label for="vezetekNev">Vezetéknév</label>
+      <input type="text" class="form-control" name="vezetekNev" [(ngModel)]="felhasznalo.firstName" required />
+    </div>
+    <div class="form-group">
+      <label for="keresztNev">Keresztnév</label>
+      <input type="text" class="form-control" name="keresztNev" [(ngModel)]="felhasznalo.lastName" required />
     </div>
     <div class="form-group">
       <label for="email">Email</label>
@@ -14,7 +18,7 @@
     </div>
     <div class="form-group">
       <label for="jelszo">Jelszó</label>
-      <input type="password" class="form-control" name="jelszo" [(ngModel)]="felhasznalo.jelszo" />
+      <input type="password" class="form-control" name="jelszo" [(ngModel)]="felhasznalo.password" />
     </div>
     <div class="form-group">
       <label for="jelszoUjra">Jelszó Újra</label>
