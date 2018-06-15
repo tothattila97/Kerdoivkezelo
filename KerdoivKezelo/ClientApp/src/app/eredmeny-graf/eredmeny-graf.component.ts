@@ -8,22 +8,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EredmenyGrafComponent implements OnInit {
   public kerdoivek: Kerdoiv[];
-  public kivalasztottKerdoiv = 0;
+  kivalasztottKerdoivIndex = 0;
 
   kitoltesek: KerdoivKitoltese[];
   public csoportositottKitoltesek: KerdoivKitoltese[][];
-  public kivalasztottKitoltesCsoport = -1;
+  public kivalasztottKitoltesCsoportIndex = -1;
 
   public savSzelesseg = 5;
   public maxCsoportMeret = 0;
 
   http: HttpClient;
   baseUrl: string;
-
-  //integrálni mock helyett db-vel
-  //a kérdőívek listázásától elérhető legyen
-  //  akkor nem is kell a kérdőív választás, hanem csak az legyen, akit a kezdőoldalon kiválasztottunk?
-  //másik kérdőív kiválasztására jöjjenek be a megfelelő adatok
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
@@ -37,11 +32,12 @@ export class EredmenyGrafComponent implements OnInit {
   getKerdoivek() {
     this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kitoltes/GetKerdoivek').subscribe(result => {
       this.kerdoivek = result;
-      this.getKitoltesek(0);
+      this.getKitoltesek();
     }, error => console.error(error));
   }
 
-  getKitoltesek(kerdoivId: number) {
+  getKitoltesek() {
+    let kerdoivId = this.kerdoivek[this.kivalasztottKerdoivIndex].id;
     this.http.get<KerdoivKitoltese[]>(this.baseUrl + 'api/Kitoltes/GetKitoltesek/' + kerdoivId).subscribe(result => {
       this.kitoltesek = result;
       this.kitoltesCsoportositas();
@@ -49,21 +45,31 @@ export class EredmenyGrafComponent implements OnInit {
   }
 
   kitoltesCsoportositas() {
-    let max = Math.floor(this.kerdoivek[this.kivalasztottKerdoiv].maxPontszam / this.savSzelesseg) + 1;
+    this.kivalasztottKitoltesCsoportIndex = -1;
+    let max = Math.floor(this.kerdoivek[this.kivalasztottKerdoivIndex].maxPontszam / this.savSzelesseg) + 1;
     let csk: KerdoivKitoltese[][] = new Array<KerdoivKitoltese[]>(max);
     for (let i = 0; i < max; i++) {
-      csk[i] = this.kitoltesek
-        .filter(kit => this.savSzamitas(kit.pontszam) === i)
-        .sort((k1, k2) => { return k2.pontszam - k1.pontszam; });
-      if (csk[i].length > this.maxCsoportMeret) {
-        this.maxCsoportMeret = csk[i].length;
-      }
+      csk[i] = this.csoportKeszites(i);
+      this.maxCsoportMeretFrissites(csk[i].length);
     }
     this.csoportositottKitoltesek = csk;
   }
 
+  csoportKeszites(index: number): KerdoivKitoltese[] {
+    return this.kitoltesek
+        .filter(kit => this.savSzamitas(kit.pontszam) === index)
+        .sort((k1, k2) => { return k2.pontszam - k1.pontszam; });
+  }
+
+  maxCsoportMeretFrissites(csoportMeret: number) {
+    if (csoportMeret > this.maxCsoportMeret) {
+      this.maxCsoportMeret = csoportMeret;
+    }
+  }
+
   public kerdoivValtas(event) {
-    this.getKitoltesek(0);
+    this.kivalasztottKerdoivIndex = event.target.selectedIndex;
+    this.getKitoltesek();
   }
 
   savSzamitas(pont: number): number {
@@ -71,11 +77,10 @@ export class EredmenyGrafComponent implements OnInit {
   }
 
   public reszletezes(index: number) {
-    this.kivalasztottKitoltesCsoport = index;
+    this.kivalasztottKitoltesCsoportIndex = index;
   }
 
   public savSzelessegValtoztatas(valtoztatas: number) {
-    this.kivalasztottKitoltesCsoport = -1;
     this.savSzelesseg += valtoztatas;
     if (this.savSzelesseg < 1) {
       this.savSzelesseg = 1;
@@ -86,8 +91,8 @@ export class EredmenyGrafComponent implements OnInit {
   public getCsoportNev(index: number): string {
     let kezdes = index * this.savSzelesseg;
     let veg = index * this.savSzelesseg + (this.savSzelesseg - 1);
-    if (veg > this.kerdoivek[this.kivalasztottKerdoiv].maxPontszam) {
-      veg = this.kerdoivek[this.kivalasztottKerdoiv].maxPontszam;
+    if (veg > this.kerdoivek[this.kivalasztottKerdoivIndex].maxPontszam) {
+      veg = this.kerdoivek[this.kivalasztottKerdoivIndex].maxPontszam;
     }
     if (kezdes == veg) {
       return kezdes + '';
@@ -99,6 +104,7 @@ export class EredmenyGrafComponent implements OnInit {
 }
 
 interface Kerdoiv {
+  id: number;
   nev: string;
   idoKorlat: string;
   kitoltesSzam: number;

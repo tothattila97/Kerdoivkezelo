@@ -2,7 +2,7 @@
 <div class="kontener">
   <h3>Kérdőív választás</h3>
   <select (change)="kerdoivValtas($event)">
-    <option value="{{i}}" *ngFor="let kerdoiv of kerdoivek; let i=index">
+    <option *ngFor="let kerdoiv of kerdoivek; let i=index">
       {{kerdoiv.nev}}
     </option>
   </select>
@@ -30,8 +30,8 @@
 </div>
 
 <!-- részletek -->
-<div *ngIf="kivalasztottKitoltesCsoport>=0" class="kontener">
-  <h3>{{getCsoportNev(kivalasztottKitoltesCsoport)}} sáv részletei</h3>
+<div *ngIf="kivalasztottKitoltesCsoportIndex>=0" class="kontener">
+  <h3>{{getCsoportNev(kivalasztottKitoltesCsoportIndex)}} sáv kitöltői</h3>
   <table class="table">
     <thead>
       <tr>
@@ -42,7 +42,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let kitoltes of csoportositottKitoltesek[kivalasztottKitoltesCsoport]">
+      <tr *ngFor="let kitoltes of csoportositottKitoltesek[kivalasztottKitoltesCsoportIndex]">
         <td>
           {{kitoltes.felhasznalo.name}}
         </td>
