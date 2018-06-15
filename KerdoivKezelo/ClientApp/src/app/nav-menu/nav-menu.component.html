@@ -22,6 +22,11 @@
                 <span class='glyphicon glyphicon-th-list'></span> Bejelentkezés
               </a>
             </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/eredmeny-graf"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Grafikon
+              </a>
+            </li>
           </ul>
         </div>
     </div>

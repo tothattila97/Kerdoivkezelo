@@ -15,10 +15,10 @@ import { EredmenyGrafComponent } from './eredmeny-graf/eredmeny-graf.component';
   declarations: [
       AppComponent,
       NavMenuComponent,
-    KerdoivListaComponent,
-    BejelentkezesComponent,
-    RegisztracioComponent
-    EredmenyGrafComponent
+      KerdoivListaComponent,
+      BejelentkezesComponent,
+      RegisztracioComponent,
+      EredmenyGrafComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
