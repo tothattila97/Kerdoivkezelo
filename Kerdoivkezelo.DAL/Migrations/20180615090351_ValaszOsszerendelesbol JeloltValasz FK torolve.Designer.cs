@@ -4,14 +4,16 @@ using Kerdoivkezelo.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kerdoivkezelo.DAL.Migrations
 {
     [DbContext(typeof(KerdoivKezeloDbContext))]
-    partial class KerdoivKezeloDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180615090351_ValaszOsszerendelesbol JeloltValasz FK torolve")]
+    partial class ValaszOsszerendelesbolJeloltValaszFKtorolve
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

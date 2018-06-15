@@ -13,8 +13,8 @@ namespace Kerdoivkezelo.DAL.Entities
         public int KerdesId { get; set; }
         public Kerdes Kerdes { get; set; }
 
-        public int JeloltValaszId { get; set; }
-        public JeloltValasz JeloltValasz { get; set; }
+        //public int JeloltValaszId { get; set; }
+        //public JeloltValasz JeloltValasz { get; set; }
 
         public bool Helyes { get; set; }
     }
