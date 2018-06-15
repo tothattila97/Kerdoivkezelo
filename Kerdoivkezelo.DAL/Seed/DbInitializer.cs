@@ -14,6 +14,7 @@ namespace Kerdoivkezelo.DAL.Seed
             context.Database.EnsureCreated();
             InitKerdoivek(context);
             InitKerdoivKerdesekkelEsValaszokkal(context);
+            InitKitoltesek(context);
         }
 
         public static void InitKerdoivek(KerdoivKezeloDbContext context)
@@ -55,9 +56,6 @@ namespace Kerdoivkezelo.DAL.Seed
             context.Kerdoivek.Add(k14);
             context.Kerdoivek.Add(k15);
             context.Kerdoivek.Add(k16);
-
-            AddKitoltesek(context);
-
             context.SaveChanges();
         }
 
@@ -116,7 +114,7 @@ namespace Kerdoivkezelo.DAL.Seed
             context.SaveChanges();
         }
 
-        private static void AddKitoltesek(KerdoivKezeloDbContext context) {
+        private static void InitKitoltesek(KerdoivKezeloDbContext context) {
             //test9
             context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user1", 1, 10));
             context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user2", 1, 0));
@@ -133,6 +131,8 @@ namespace Kerdoivkezelo.DAL.Seed
             context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user2", 2, 7));
             context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user16", 2, 7));
             context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user8", 2, 21));
+
+            context.SaveChanges();
         }
 
         private static KerdoivKitoltes KitoltesLetrehozas(string felhasznaloNev, int kerdoivId, int pontszam) {
