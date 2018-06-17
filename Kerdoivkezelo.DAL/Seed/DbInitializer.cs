@@ -10,10 +10,11 @@ namespace Kerdoivkezelo.DAL.Seed
     {
         public static void Initialize(KerdoivKezeloDbContext context)
         {
-            //context.Database.EnsureDeleted();
-            //context.Database.EnsureCreated();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
             InitKerdoivek(context);
             InitKerdoivKerdesekkelEsValaszokkal(context);
+            InitKitoltesek(context);
         }
 
         public static void InitKerdoivek(KerdoivKezeloDbContext context)
@@ -111,6 +112,38 @@ namespace Kerdoivkezelo.DAL.Seed
             }
 
             context.SaveChanges();
+        }
+
+        private static void InitKitoltesek(KerdoivKezeloDbContext context) {
+            //test9
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user1", 1, 10));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user2", 1, 0));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user3", 1, 7));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user4", 1, 9));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user5", 1, 3));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user6", 1, 13));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user7", 1, 7));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user8", 1, 16));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user9", 1, 17));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user10", 1, 11));
+            //test12
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user7", 2, 25));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user2", 2, 7));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user16", 2, 7));
+            context.KerdoivKitoltesek.Add(KitoltesLetrehozas("user8", 2, 21));
+
+            context.SaveChanges();
+        }
+
+        private static KerdoivKitoltes KitoltesLetrehozas(string felhasznaloNev, int kerdoivId, int pontszam) {
+            return new KerdoivKitoltes()
+            {
+                KerdoivId = kerdoivId,
+                Pontszam = pontszam,
+                KitoltesKezdete = new DateTimeOffset(),
+                KitoltesVege = new DateTimeOffset(),
+                Felhasznalo = new Felhasznalo { Name = felhasznaloNev },
+            };
         }
     }
 }

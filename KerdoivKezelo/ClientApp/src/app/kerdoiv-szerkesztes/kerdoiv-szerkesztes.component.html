@@ -1,0 +1,31 @@
+<h1>{{kerdoiv.nev}} szerkesztése</h1>
+
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-sm-5'>
+      <ul class='kerdesek'>
+        <li *ngFor="let kerdes of kerdoiv.kerdesek"
+        (click)="selectKerdoiv(kerdes)"
+        [class.selected]="kerdes === selectedKerdes">
+          <span class='badge'></span>{{kerdes.kerdes}}
+        </li>
+        <button>Kérdés hozzáadása</button>
+      </ul>
+
+    </div>
+    <div class='col-sm-7 body-content' *ngIf="selectedKerdes">
+      <input type="text" [(ngModel)]="selectedKerdes.kerdes" placeholder="Kérdés">
+      <select>
+        <option *ngFor="let tipus of kerdesTipusok;" value="{{tipus[0]}}">{{tipus[1]}}</option>
+      </select>
+      <ul>
+        <li *ngFor="let valasz of selectedKerdes.valaszok">
+          {{valasz}}
+        </li>
+        <li>
+          <button>Válasz hozzáadása</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

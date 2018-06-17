@@ -44,6 +44,7 @@ namespace KerdoivKezelo
 
             services.AddDbContext<KerdoivKezeloDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))))
+<<<<<<< HEAD
             .AddTransient<AdministratorSeeder>();
 
             services.AddSingleton<IJwtFactory, JwtFactory>();
@@ -70,6 +71,10 @@ namespace KerdoivKezelo
 
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = _signingKey,
+=======
+                .AddScoped<KerdoivService>()
+                .AddScoped<KitoltesService>();
+>>>>>>> refs/remotes/origin/master
 
                 RequireExpirationTime = false,
                 ValidateLifetime = true,
