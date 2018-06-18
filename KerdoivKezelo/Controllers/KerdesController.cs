@@ -1,5 +1,6 @@
 ﻿using Kerdoivkezelo.DAL.Entities;
 using Kerdoivkezelo.DAL.Services;
+using KerdoivKezelo.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace KerdoivKezelo.Controllers
 {
     [Route("Kerdes/[Action]")]
+    [ExceptionFilter]
     public class KerdesController : Controller
     {
         public KerdesService _kerdesService { get; }
@@ -22,7 +24,7 @@ namespace KerdoivKezelo.Controllers
         public IActionResult GetKerdesByKerdoiv(int _kerdoivID)
         {
             var kerdesek = _kerdesService.GetKerdesByKerdoiv(_kerdoivID);
-            if (kerdesek.Count == 0)
+            if (kerdesek == null)
                 return NotFound();
 
             var kerdeselemek = new List<KerdesOsszerendeles>();
