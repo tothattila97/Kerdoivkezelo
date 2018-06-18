@@ -98,5 +98,101 @@ namespace KerdoivKezelo.Controllers
             await KerdoivService.Delete(id);
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> SortByNevAndFilterByNev(string queryString, bool direction, int oldalszam)
+        {
+            if (direction == true)
+            {
+                var kerdoivek = await KerdoivService.SortNevAscendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            if (direction == false)
+            {
+                var kerdoivek = await KerdoivService.SortNevDescendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SortByMaxPontAndFilterByNev(string queryString, bool direction, int oldalszam)
+        {
+            if (direction == true)
+            {
+                var kerdoivek = await KerdoivService.SortMaxPontAscendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            if (direction == false)
+            {
+                var kerdoivek = await KerdoivService.SortMaxPontDescendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SortByIdokorlatAndFilterByNev(string queryString, bool direction, int oldalszam)
+        {
+            if (direction == true)
+            {
+                var kerdoivek = await KerdoivService.SortIdokorlatAscendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            if (direction == false)
+            {
+                var kerdoivek = await KerdoivService.SortIdokorlatDescendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SortByKitoltesekSzamaAndFilterByNev(string queryString, bool direction, int oldalszam)
+        {
+            if (direction == true)
+            {
+                var kerdoivek = await KerdoivService.SortKitoltesekSzamaAscendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            if (direction == false)
+            {
+                var kerdoivek = await KerdoivService.SortKitoltesekSzamaDescendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SortBySajatEredmenyAndFilterByNev(string queryString, bool direction, int oldalszam)
+        {
+            if (direction == true)
+            {
+                var kerdoivek = await KerdoivService.SortSajatEredmenyAscendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            if (direction == false)
+            {
+                var kerdoivek = await KerdoivService.SortSajatEredmenyDescendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public  async Task<IActionResult> SortByAndFilterByNev(string queryString, bool direction, int oldalszam)
+        {
+            if (direction == true)
+            {
+                var kerdoivek = await KerdoivService.SortAtlagPontszamAscendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            if (direction == false)
+            {
+                var kerdoivek = await KerdoivService.SortAtlagPontszamDescendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            return BadRequest();
+        }
     }
 }
