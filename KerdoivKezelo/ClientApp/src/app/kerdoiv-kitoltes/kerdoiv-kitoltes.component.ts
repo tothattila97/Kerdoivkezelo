@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class KerdoivKitoltesComponent implements OnInit {
 
   kerdoiv: Kerdoiv;
+  kerdesTipus = KerdesTipus;
 
   constructor(private route: ActivatedRoute) { }
 

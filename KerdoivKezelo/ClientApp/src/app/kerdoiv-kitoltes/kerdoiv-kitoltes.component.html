@@ -4,12 +4,12 @@
   <form [ngSwitch]="kerdes.tipus">
     <div *ngFor="let valasz of kerdes.valaszok; let j = index;">
       <div>
-          <input class="float-right" *ngSwitchCase="'tobbszoros'" type="checkbox" name="valasz-{{i}}" id={{i}}-{{j}}>
-          <input class="float-right" *ngSwitchCase="'egyszeru'" type="radio" name="valasz-{{i}}" id={{i}}-{{j}}>
+          <input class="float-right" *ngSwitchCase="kerdesTipus.tobbszoros" type="checkbox" name="valasz-{{i}}" id={{i}}-{{j}}>
+          <input class="float-right" *ngSwitchCase="kerdesTipus.egyszeru" type="radio" name="valasz-{{i}}" id={{i}}-{{j}}>
           <label for="{{i}}-{{j}}">{{valasz}}</label>
       </div>
     </div>
-    <input *ngSwitchCase="'szoveges' || 'szam'" type="text" name="valasz-{{i}}">
+    <input *ngSwitchCase="kerdesTipus.szoveges || kerdesTipus.szam" type="text" name="valasz-{{i}}">
     <button type="submit">Válaszol</button>
   </form>
 </form>
