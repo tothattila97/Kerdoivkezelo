@@ -10,6 +10,9 @@ import { KerdoivListaComponent } from './kerdoiv-lista/kerdoiv-lista.component';
 import { BejelentkezesComponent } from './bejelentkezes/bejelentkezes.component';
 import { RegisztracioComponent } from './regisztracio/regisztracio.component';
 import { EredmenyGrafComponent } from './eredmeny-graf/eredmeny-graf.component';
+import { KerdesComponent } from './kerdes/kerdes.component';
+import { KerdoivKitoltesComponent } from './kerdoiv-kitoltes/kerdoiv-kitoltes.component';
+import { KerdoivSzerkesztesComponent } from './kerdoiv-szerkesztes/kerdoiv-szerkesztes.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { EredmenyGrafComponent } from './eredmeny-graf/eredmeny-graf.component';
       KerdoivListaComponent,
       BejelentkezesComponent,
       RegisztracioComponent,
-      EredmenyGrafComponent
+      EredmenyGrafComponent,
+      KerdesComponent,
+      KerdoivKitoltesComponent,
+      KerdoivSzerkesztesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +34,10 @@ import { EredmenyGrafComponent } from './eredmeny-graf/eredmeny-graf.component';
       { path: '', component: KerdoivListaComponent },
       { path: 'bejelentkezes', component: BejelentkezesComponent },
       { path: 'regisztracio', component: RegisztracioComponent },
-      { path: 'eredmeny-graf', component: EredmenyGrafComponent }
+      { path: 'eredmeny-graf', component: EredmenyGrafComponent },
+      { path: 'kerdes/:id', component: KerdesComponent },
+      { path: 'kerdoiv-kitoltes/:id', component: KerdoivKitoltesComponent },
+      { path: 'kerdoiv-szerkesztes/:id', component: KerdoivSzerkesztesComponent }
     ])
   ],
   providers: [],
