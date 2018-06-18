@@ -1,7 +1,7 @@
 <!-- kérdőív változtatás -->
 <div class="kontener">
   <h3>Kérdőív választás</h3>
-  <select (change)="kerdoivValtas($event)" id="sel">
+  <select (change)="kerdoivValtas($event)">
     <option *ngFor="let kerdoiv of kerdoivek; let i=index" [selected]="i==kivalasztottKerdoivIndex">
       {{kerdoiv.nev}}
     </option>
