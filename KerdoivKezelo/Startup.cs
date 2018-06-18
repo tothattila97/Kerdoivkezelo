@@ -1,6 +1,7 @@
 using Kerdoivkezelo.DAL;
 using Kerdoivkezelo.DAL.Services;
 using KerdoivKezelo.Controllers;
+using KerdoivKezelo.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,13 @@ namespace KerdoivKezelo
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
+            });
+
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<ExceptionFilter>();
+                //options.Filters.Add<ModelStateFilter>();
             });
 
 

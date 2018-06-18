@@ -5,9 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kerdoivkezelo.DAL.Exceptions;
+using KerdoivKezelo.Filters;
+using KerdoivKezelo.Exceptions;
 
 namespace Kerdoivkezelo.DAL.Services
 {
+    [ExceptionFilter]
     public class KerdoivService
     {
         public KerdoivService(KerdoivKezeloDbContext context)
@@ -101,6 +105,10 @@ namespace Kerdoivkezelo.DAL.Services
 
         public async Task<Kerdoiv> Create(Kerdoiv kerdoiv)
         {
+            if(kerdoiv == null)
+            {
+                throw new BadRequestException();
+            }
             Context.Add(kerdoiv);
             await Context.SaveChangesAsync();
             return kerdoiv;
@@ -109,17 +117,34 @@ namespace Kerdoivkezelo.DAL.Services
         public async Task Delete(int id)
         {
             var kerdoiv = Context.Kerdoivek.SingleOrDefault(k => k.Id == id);
+            if(kerdoiv == null)
+            {
+                throw new KerdoivKezelo.Exceptions.NotFoundException();
+            }
             Context.Kerdoivek.Remove(kerdoiv);
             await Context.SaveChangesAsync();
         }
 
         public async Task<Kerdoiv> Edit(int id, Kerdoiv _kerdoiv)
         {
+            if(id != _kerdoiv.Id)
+            {
+                throw new BadRequestException();
+            }
             Context.Update(_kerdoiv);
             await Context.SaveChangesAsync();
+
+            if (!KerdoivExist(_kerdoiv.Id))
+            {
+                throw new BadRequestException();
+            }
 
             return _kerdoiv;
         }
 
+        private bool KerdoivExist(int id)
+        {
+            return Context.Kerdoivek.Any(k => k.Id == id);
+        }
     }
 }
