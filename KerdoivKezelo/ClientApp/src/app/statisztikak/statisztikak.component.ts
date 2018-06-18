@@ -4,11 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-eredmeny-graf',
-  templateUrl: './eredmeny-graf.component.html',
-  styleUrls: ['./eredmeny-graf.component.css']
+  selector: 'app-statisztikak',
+  templateUrl: './statisztikak.component.html',
+  styleUrls: ['./statisztikak.component.css']
 })
-export class EredmenyGrafComponent implements OnInit {
+export class StatisztikakComponent implements OnInit {
   kerdoivek: Kerdoiv[];
   kivalasztottKerdoivIndex = 0;
 
@@ -32,7 +32,7 @@ export class EredmenyGrafComponent implements OnInit {
     this.getKerdoivek(id);
   }
 
-  getKerdoivek(id: number) {
+  getKerdoivek(id: number): void {
     this.http.get<Kerdoiv[]>(this.baseUrl + 'api/Kitoltes/GetKerdoivek').subscribe(result => {
       this.kerdoivek = result;
       this.kivalasztasIndexSzamitasKerdoivIdbol(id);
@@ -40,7 +40,7 @@ export class EredmenyGrafComponent implements OnInit {
     }, error => console.error(error));
   }
 
-  kivalasztasIndexSzamitasKerdoivIdbol(id: number) {
+  kivalasztasIndexSzamitasKerdoivIdbol(id: number): void {
     if (id !== -1) {
       for (let i = 0; i < this.kerdoivek.length; i++) {
         if (id == this.kerdoivek[i].id) {
@@ -51,7 +51,7 @@ export class EredmenyGrafComponent implements OnInit {
     }
   }
 
-  getKitoltesek() {
+  getKitoltesek(): void {
     let kerdoivId = this.kerdoivek[this.kivalasztottKerdoivIndex].id;
     this.http.get<KerdoivKitoltes[]>(this.baseUrl + 'api/Kitoltes/GetKitoltesek/' + kerdoivId).subscribe(result => {
       this.kitoltesek = result;
@@ -59,7 +59,7 @@ export class EredmenyGrafComponent implements OnInit {
     }, error => console.error(error));
   }
 
-  kitoltesCsoportositas() {
+  kitoltesCsoportositas(): void {
     this.maxCsoportMeret = 0;
     this.kivalasztottKitoltesCsoportIndex = -1;
     let savokSzama = Math.floor(this.kerdoivek[this.kivalasztottKerdoivIndex].maxPontszam / this.savSzelesseg) + 1;
@@ -81,18 +81,18 @@ export class EredmenyGrafComponent implements OnInit {
     return Math.floor(pont / this.savSzelesseg);
   }
 
-  maxCsoportMeretFrissites(csoportMeret: number) {
+  maxCsoportMeretFrissites(csoportMeret: number): void {
     if (csoportMeret > this.maxCsoportMeret) {
       this.maxCsoportMeret = csoportMeret;
     }
   }
 
-  kerdoivValtas(event) {
+  kerdoivValtas(event): void {
     this.kivalasztottKerdoivIndex = event.target.selectedIndex;
     this.getKitoltesek();
   }
 
-  reszletezes(index: number) {
+  reszletezes(index: number): void {
     if (index === this.kivalasztottKitoltesCsoportIndex && index != -1) {
       this.kivalasztottKitoltesCsoportIndex = -1;
     } else {
@@ -100,7 +100,7 @@ export class EredmenyGrafComponent implements OnInit {
     }
   }
 
-  savSzelessegValtoztatas(valtoztatas: number) {
+  savSzelessegValtoztatas(valtoztatas: number): void {
     this.savSzelesseg += valtoztatas;
     if (this.savSzelesseg < 1) {
       this.savSzelesseg = 1;

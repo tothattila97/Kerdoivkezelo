@@ -116,7 +116,7 @@ export class KerdoivListaComponent implements OnInit {
   }
 
   kerdoivStatisztikak(kerdoivId: number): void {
-    this.router.navigate(['/eredmeny-graf'], { queryParams: { id: kerdoivId } });
+    this.router.navigate(['/statisztikak'], { queryParams: { id: kerdoivId } });
   }
 
   private setKeresesNev(value: string) {
