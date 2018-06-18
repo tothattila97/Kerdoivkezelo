@@ -17,30 +17,27 @@ export class FelhasznaloListaComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.felhasznalok = new Array<Felhasznalo>(3);
-    this.felhasznalok[0] = {
-      name: 'admin',
-      admin: true,
-      adminJog: true
-    };
-    this.felhasznalok[1] = {
-      name: 'user1',
-      admin: false,
-      adminJog: true
-    };
-    this.felhasznalok[2] = {
-      name: 'user2',
-      admin: false,
-      adminJog: false
-    };
+    this.getFelhasznalok();
+  }
+
+  getFelhasznalok(): void {
+    this.http.get<Felhasznalo[]>(this.baseUrl + 'api/Felhasznalo/GetFelhasznalok').subscribe(result => {
+      this.felhasznalok = result;
+    }, error => console.error(error));
   }
 
   adminJogHozzaadasa(index: number): void {
     this.felhasznalok[index].adminJog = true;
+    this.felhasznaloFrissitese(index);
   }
 
   adminJogElvetele(index: number): void {
     this.felhasznalok[index].adminJog = false;
+    this.felhasznaloFrissitese(index);
+  }
+
+  felhasznaloFrissitese(index: number): void {
+    this.http.post<Felhasznalo>(this.baseUrl + 'api/Felhasznalo/FelhasznaloFrissitese', this.felhasznalok[index]);
   }
   
 }
