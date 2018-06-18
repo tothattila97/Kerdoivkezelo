@@ -23,8 +23,13 @@
               </a>
             </li>
             <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/eredmeny-graf"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-stats'></span> Grafikon
+              <a [routerLink]='["/statisztikak"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-stats'></span> Statisztikák
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/felhasznalo-lista"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-user'></span> Felhasználók
               </a>
             </li>
           </ul>
