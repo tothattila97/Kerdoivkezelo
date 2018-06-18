@@ -10,8 +10,8 @@ namespace Kerdoivkezelo.DAL.Seed
     {
         public static void Initialize(KerdoivKezeloDbContext context)
         {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            //context.Database.EnsureDeleted();
+            //context.Database.EnsureCreated();
             InitKerdoivek(context);
             InitKerdoivKerdesekkelEsValaszokkal(context);
             InitKitoltesek(context);

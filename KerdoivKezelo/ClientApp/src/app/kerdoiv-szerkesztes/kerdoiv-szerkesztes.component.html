@@ -1,31 +1,70 @@
-<h1>{{kerdoiv.nev}} szerkesztése</h1>
+<!-- Header -->
+<div class="kerdoiv-header" *ngIf="!isNevEditing">
+  <h1>{{kerdoiv.nev}}
+    <button class="btn btn-light btn-feher-szurke" (click)="editNev()">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </button>
+  </h1>
+</div>
+<div class="kerdoiv-header" *ngIf="isNevEditing">
+  <h1>
+    <div class="row">
+      <div class="col-sm-9">
+        <input type="text" class="form-control form-control-lg" #ujNev [value]="kerdoiv.nev">
+      </div>
+      <div class="col-sm-3">
+        <button class="btn btn-light" (click)="saveNev(ujNev.value)">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button class="btn btn-light" (click)="cancelNev()">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+    </div>
+  </h1>
+</div>
 
+<!-- Oldal tartalma -->
 <div class='container-fluid'>
+  <!-- Kerdesek listaja -->
   <div class='row'>
     <div class='col-sm-5'>
       <ul class='kerdesek'>
-        <li *ngFor="let kerdes of kerdoiv.kerdesek"
-        (click)="selectKerdoiv(kerdes)"
-        [class.selected]="kerdes === selectedKerdes">
+        <li *ngFor="let kerdes of kerdoiv.kerdesek" (click)="selectKerdes(kerdes)" [class.selected]="kerdes === selectedKerdes">
           <span class='badge'></span>{{kerdes.kerdes}}
         </li>
-        <button>Kérdés hozzáadása</button>
+        <button class="btn btn-primary btn-lg" (click)="kerdesHozzaadasa()">Kérdés hozzáadása</button>
       </ul>
-
     </div>
-    <div class='col-sm-7 body-content' *ngIf="selectedKerdes">
-      <input type="text" [(ngModel)]="selectedKerdes.kerdes" placeholder="Kérdés">
-      <select>
-        <option *ngFor="let tipus of kerdesTipusok;" value="{{tipus[0]}}">{{tipus[1]}}</option>
-      </select>
-      <ul>
-        <li *ngFor="let valasz of selectedKerdes.valaszok">
-          {{valasz}}
-        </li>
-        <li>
-          <button>Válasz hozzáadása</button>
-        </li>
-      </ul>
+
+    <!-- Kerdes reszletes nezete-->
+    <div class='col-sm-7 container-fluid' *ngIf="selectedKerdes">
+      <div class="form-row form-group">
+        <input type="text" class="form-control form-control-lg" [(ngModel)]="selectedKerdes.kerdes" placeholder="Kérdés">
+      </div>
+      <div class="form-row form-group">
+        <select class="form-control" [(ngModel)]="selectedKerdes.tipus" (change)="selectKerdesTipus($event.target.value)">
+          <option *ngFor="let tipus of kerdesTipusok;" [value]="tipus[1]">{{tipus[1]}}</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <ul class='valaszok'>
+          <li class="valasz" *ngFor="let valasz of selectedKerdes.valaszok">
+            {{valasz}}
+          </li>
+        </ul>
+      </div>
+      <div class="form-row form-group">
+        <button class="btn btn-primary" (click)="valaszHozzaadasa()">Válasz hozzáadása</button>
+      </div>
+      <div class="form-row form-group">
+        <button class="btn btn-light btn-feher-szurke" (click)="saveNev(ujNev.value)">
+          Mentés
+        </button>
+        <button class="btn btn-light btn-feher-szurke" (click)="cancelNev()">
+          Mégse
+        </button>
+      </div>
     </div>
   </div>
 </div>

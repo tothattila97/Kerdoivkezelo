@@ -4,4 +4,5 @@ export class Kerdes {
   tipus: KerdesTipus;
 }
 
-export enum KerdesTipus {tobbszoros = 'Többszörös', egyszeru = 'Egyszerű', szoveges = 'Szöveges', szam = 'Szám'}
+//export enum KerdesTipus { 'Többszörös', 'Egyszerű', 'Szöveges', 'Szám' }
+export enum KerdesTipus { tobbszoros = 'Többszörös', egyszeru = 'Egyszerű', szoveges = 'Szöveges', szam = 'Szám' }

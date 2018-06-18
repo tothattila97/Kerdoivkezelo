@@ -13,12 +13,17 @@ export class KerdoivSzerkesztesComponent implements OnInit {
   kerdoiv: Kerdoiv;
   kerdesTipusok: [string, string][];
   selectedKerdes: Kerdes;
+  selectedTipus: KerdesTipus;
+  isNevEditing: boolean;
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getKerdoiv();
-    this.kerdesTipusok = Object.entries(KerdesTipus);
-    this.selectedKerdes = this.kerdoiv.kerdesek[0];
+    this.kerdesTipusok = Object.entries(KerdesTipus); //.filter(key => !isNaN(Number(KerdesTipus[key])));
+    console.log(this.kerdesTipusok);
+    this.selectedKerdes = this.kerdoiv.kerdesek[1];
+    this.isNevEditing = false;
   }
 
   getKerdoiv() {
@@ -27,8 +32,42 @@ export class KerdoivSzerkesztesComponent implements OnInit {
     this.kerdoiv = KERDOIV;
   }
 
-  selectKerdoiv(kerdes: Kerdes) {
+  selectKerdes(kerdes: Kerdes) {
+    this.isNevEditing = false;
     this.selectedKerdes = kerdes;
+    this.selectedTipus = kerdes.tipus;
   }
+
+  selectKerdesTipus(tipusKey: string) {
+    this.selectedKerdes.tipus = KerdesTipus[tipusKey];
+    this.selectedTipus = KerdesTipus[tipusKey];
+  }
+
+  valaszHozzaadasa() {
+    this.selectedKerdes.valaszok.push('Uj valasz');
+  }
+
+  kerdesHozzaadasa() {
+    const kerdes: Kerdes = {
+      kerdes: 'Új kérdés',
+      valaszok: [],
+      tipus: KerdesTipus.egyszeru
+    };
+    this.kerdoiv.kerdesek.push(kerdes);
+  }
+
+  editNev() {
+    this.isNevEditing = true;
+  }
+
+  saveNev(ujNev: string) {
+    this.isNevEditing = false;
+    this.kerdoiv.nev = ujNev;
+  }
+
+  cancelNev() {
+    this.isNevEditing = false;
+  }
+
 
 }
