@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Felhasznalo = /** @class */ (function () {
     function Felhasznalo() {
-        this.felhasznaloNev = "";
-        this.email = "";
-        this.jelszo = "";
+        this.password = "";
     }
     return Felhasznalo;
 }());

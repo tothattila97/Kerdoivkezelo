@@ -96,7 +96,7 @@ export class KerdoivListaComponent implements OnInit {
     this.getKerdoivek(this.oldalszam - 1);
   }
 
-  opcioValasztas(opcio) {
+  opcioValasztas(opcio: string) {
     this.vasztottOpcio = opcio;
     if (opcio === "optionNev") {
       this.nevSzuresTorles();
