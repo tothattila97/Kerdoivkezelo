@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-kerdoiv-lista',
   templateUrl: './kerdoiv-lista.component.html'
@@ -18,7 +20,7 @@ export class KerdoivListaComponent implements OnInit {
   isKereses: boolean = false;
   vasztottOpcio = "optionNev";
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {  }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) {}
 
   ngOnInit(): void {
     this.getKerdoivek(this.oldalszam - 1);
@@ -113,8 +115,8 @@ export class KerdoivListaComponent implements OnInit {
 
   }
 
-  kerdoivStatisztikak(nev: string): void {
-
+  kerdoivStatisztikak(kerdoivId: number): void {
+    this.router.navigate(['/eredmeny-graf'], { queryParams: { id: kerdoivId } });
   }
 
   private setKeresesNev(value: string) {
@@ -205,6 +207,7 @@ export class KerdoivListaComponent implements OnInit {
 }
 
 interface Kerdoiv {
+  id: number;
   nev: string;
   idoKorlat: string;
   kitoltesSzam: number;
