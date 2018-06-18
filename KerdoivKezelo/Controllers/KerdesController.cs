@@ -15,7 +15,7 @@ namespace KerdoivKezelo.Controllers
 
         public KerdesController(KerdesService KerdesService)
         {
-            _kerdesService = KerdesService; 
+            _kerdesService = KerdesService;
         }
 
         [HttpGet]
@@ -54,4 +54,15 @@ namespace KerdoivKezelo.Controllers
         //        return Ok(elemek);
         //    }
         //}
+
+        [HttpGet]
+        public async Task<IActionResult> GetValaszokByKerdes(int kerdesID)
+        {
+            var valaszok = await _kerdesService.GetValaszok(kerdesID);
+            if (valaszok == null)
+                return NotFound();
+            return Ok(valaszok);
+
+        }
     }
+}

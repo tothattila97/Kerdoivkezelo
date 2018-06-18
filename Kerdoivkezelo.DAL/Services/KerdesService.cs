@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Kerdoivkezelo.DAL.Services
 {
@@ -33,6 +34,13 @@ namespace Kerdoivkezelo.DAL.Services
             elem.KerdesOsszerendelesek = null;
             return elem;
         }
+
+        public async Task<List<ValaszOsszerendeles>> GetValaszok(int kerdesID)
+        {
+            var valaszok = await _context.ValaszOsszerendelesek.Include(v => v.ValaszElem).Where(vo => vo.KerdesId == kerdesID).ToListAsync(); ;
+            return valaszok;
+        }
+
 
         //public object Mukodj(int? kerdoivId)
         //{
