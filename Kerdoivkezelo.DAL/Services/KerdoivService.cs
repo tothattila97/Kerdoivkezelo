@@ -1,4 +1,5 @@
 ﻿using Kerdoivkezelo.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace Kerdoivkezelo.DAL.Services
         public IList<Kerdoiv> GetMockKerdoivek()
         {
             //init();
-            return null;
+            return Context.Kerdoivek.ToList();
         }
 
         public List<Kerdoiv> GetSzurtKerdoivekByMegnevezes(string querystr, int pagenumber)
@@ -67,6 +68,84 @@ namespace Kerdoivkezelo.DAL.Services
             var kerdoivek = Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(querystr.ToLower())).Skip(pagenumber * oldalMeret).Take(oldalMeret).ToList();
             return kerdoivek;
         }
+
+        //public async Task<List<Kerdoiv>> SortNevDescending(int oldalszam)
+        //{
+        //    var kerdoivek = await Context.Kerdoivek.OrderByDescending(k => k.Nev).ToListAsync();
+        //    kerdoivek = kerdoivek.Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+        //    return kerdoivek;
+        //}
+
+        public async Task<List<Kerdoiv>> SortNevAscendingFilterByNev(string queryString, int oldalszam)
+        {
+            if (queryString == null)
+            {
+                var kerdoivek = await Context.Kerdoivek.OrderBy(k => k.Nev).ToListAsync();
+                kerdoivek = kerdoivek.Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+                return kerdoivek;
+            }
+            else
+            {
+                var kerdoivek = await Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(queryString.ToLower())).ToListAsync();
+                kerdoivek = kerdoivek.OrderBy(k => k.Nev).Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+                return kerdoivek;
+            }
+        }
+
+        public async Task<List<Kerdoiv>> SortMaxPontAscendingFilterByNev(string queryString, int oldalszam)
+        {
+            if (queryString == null)
+            {
+                var kerdoivek = await Context.Kerdoivek.OrderBy(k => k.MaxPontszam).ToListAsync();
+                kerdoivek = kerdoivek.Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+                return kerdoivek;
+            }
+            else
+            {
+                var kerdoivek = await Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(queryString.ToLower())).ToListAsync();
+                kerdoivek = kerdoivek.OrderBy(k => k.MaxPontszam).Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+                return kerdoivek;
+            }
+        }
+
+        public async Task<List<Kerdoiv>> SortMaxPontDescendingFilterByNev(string queryString, int oldalszam)
+        {
+            if (queryString == null)
+            {
+                var kerdoivek = await Context.Kerdoivek.OrderBy(k => k.MaxPontszam).ToListAsync();
+                kerdoivek = kerdoivek.Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+                return kerdoivek;
+            }
+            else
+            {
+                var kerdoivek = await Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(queryString.ToLower())).ToListAsync();
+                kerdoivek = kerdoivek.OrderBy(k => k.MaxPontszam).Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+                return kerdoivek;
+            }
+        }
+
+        public async Task<List<Kerdoiv>> SortNevDescendingFilterByNev(string queryString, int oldalszam)
+        {
+            if (queryString == null)
+            {
+                var kerdoivek = await Context.Kerdoivek.OrderByDescending(k => k.Nev).ToListAsync();
+                kerdoivek = kerdoivek.Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+                return kerdoivek;
+            }
+            else
+            {
+                var kerdoivek = await Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(queryString.ToLower())).ToListAsync();
+                kerdoivek = kerdoivek.OrderByDescending(k => k.Nev).Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+                return kerdoivek;
+            }
+        }
+
+        //public async Task<List<Kerdoiv>> SortNevAscending(int oldalszam)
+        //{
+        //    var kerdoivek = await Context.Kerdoivek.OrderBy(k => k.Nev).ToListAsync();
+        //    kerdoivek = kerdoivek.Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+        //    return kerdoivek;
+        //}
 
         public IList<Kerdoiv> GetSzurtKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
         { 

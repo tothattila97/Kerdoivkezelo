@@ -102,5 +102,53 @@ namespace KerdoivKezelo.Controllers
             KerdoivService.Delete(id);
             return Ok();
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> SortByNev(bool direction,int oldalszam)
+        //{
+        //    if(direction == true)
+        //    {
+        //        var kerdoivek = await KerdoivService.SortNevAscending(oldalszam);
+        //        return Ok(kerdoivek);
+        //    }
+        //    else if(direction == false)
+        //    {
+        //        var kerdoivek = await KerdoivService.SortNevDescending(oldalszam);
+        //        return Ok(kerdoivek);
+        //    }
+        //    return BadRequest();        
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> SortByNevAndFilterByNev(string queryString, bool direction, int oldalszam)
+        {
+            if(direction == true)
+            {
+                var kerdoivek = await KerdoivService.SortNevAscendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            if(direction == false)
+            {
+                var kerdoivek = await KerdoivService.SortNevDescendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SortByMaxPontAndFilterByNev(string queryString, bool direction, int oldalszam)
+        {
+            if (direction == true)
+            {
+                var kerdoivek = await KerdoivService.SortMaxPontAscendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            if (direction == false)
+            {
+                var kerdoivek = await KerdoivService.SortMaxPontDescendingFilterByNev(queryString, oldalszam);
+                return Ok(kerdoivek);
+            }
+            return BadRequest();
+        }
     }
 }
