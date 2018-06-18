@@ -16,28 +16,28 @@ namespace Kerdoivkezelo.DAL.Services
         {
             _context = Context;
         }
-        public  IList<KerdoivKerdes> GetKerdesByKerdoiv(int kerdoivID)
+        public async Task<List<KerdoivKerdes>> GetKerdesByKerdoiv(int kerdoivID)
         {
-            var kerdesek = _context.KerdoivKerdesek.Where(k => k.KerdoivId == kerdoivID).ToList() ;
+            var kerdesek = await _context.KerdoivKerdesek.Where(k => k.KerdoivId == kerdoivID).ToListAsync();
             return kerdesek;
         }
 
-        public List<KerdesOsszerendeles> getKerdesElemek(int kerdesId)
+        public async Task<List<KerdesOsszerendeles>> getKerdesElemek(int kerdesId)
         {
-            var kerdeselemek = _context.KerdesOsszerendelesek.Where(k => k.KerdesId == kerdesId).ToList();
+            var kerdeselemek = await _context.KerdesOsszerendelesek.Where(k => k.KerdesId == kerdesId).ToListAsync();
             return kerdeselemek;
         }
 
-        public KerdesElem getElemek(int elemID)
+        public async Task<KerdesElem> getElemek(int elemID)
         {
-            var elem = _context.KerdesElemek.SingleOrDefault(e => e.Id == elemID);
+            var elem = await _context.KerdesElemek.SingleOrDefaultAsync(e => e.Id == elemID);
             elem.KerdesOsszerendelesek = null;
             return elem;
         }
 
         public async Task<List<ValaszOsszerendeles>> GetValaszok(int kerdesID)
         {
-            var valaszok = await _context.ValaszOsszerendelesek.Include(v => v.ValaszElem).Where(vo => vo.KerdesId == kerdesID).ToListAsync(); ;
+            var valaszok = await _context.ValaszOsszerendelesek.Include(v => v.ValaszElem).Where(vo => vo.KerdesId == kerdesID).ToListAsync();
             return valaszok;
         }
 

@@ -1,5 +1,6 @@
 ﻿using Kerdoivkezelo.DAL.Entities;
 using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,46 +57,46 @@ namespace Kerdoivkezelo.DAL.Services
         mockKerdoivek.Add(k16);
         }
         */
-        public IList<Kerdoiv> GetMockKerdoivek()
+        public async Task<List<Kerdoiv>> GetMockKerdoivek()
         {
             //init();
-            return null;
+            return await Context.Kerdoivek.ToListAsync();
         }
 
-        public List<Kerdoiv> GetSzurtKerdoivekByMegnevezes(string querystr, int pagenumber)
+        public async Task<List<Kerdoiv>> GetSzurtKerdoivekByMegnevezes(string querystr, int pagenumber)
         {
-            var kerdoivek = Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(querystr.ToLower())).Skip(pagenumber * oldalMeret).Take(oldalMeret).ToList();
+            var kerdoivek = await Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(querystr.ToLower())).Skip(pagenumber * oldalMeret).Take(oldalMeret).ToListAsync();
             return kerdoivek;
         }
 
-        public IList<Kerdoiv> GetSzurtKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
+        public async Task<List<Kerdoiv>> GetSzurtKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
         { 
             //init();
-            return Context.Kerdoivek.Where(t => (alsoIdoKorlat <= t.IdoKorlat && felsoIdokorlat >= t.IdoKorlat)).Skip(oldalszam*oldalMeret).Take(oldalMeret).ToList();
+            return await Context.Kerdoivek.Where(t => (alsoIdoKorlat <= t.IdoKorlat && felsoIdokorlat >= t.IdoKorlat)).Skip(oldalszam*oldalMeret).Take(oldalMeret).ToListAsync();
         }
 
-        public IList<Kerdoiv> GetKerdoivekAdottOldalon(int oldalszam)
+        public async Task<List<Kerdoiv>> GetKerdoivekAdottOldalon(int oldalszam)
         {
             //init();
-            return Context.Kerdoivek.Skip(oldalszam * oldalMeret).Take(oldalMeret).ToList();
+            return await Context.Kerdoivek.Skip(oldalszam * oldalMeret).Take(oldalMeret).ToListAsync();
         }
 
-        public int GetMaxOldalszam()
+        public async Task<int> GetMaxOldalszam()
         {
             //init();
-            return (Context.Kerdoivek.Count() / oldalMeret) + 1;
+            return (await Context.Kerdoivek.CountAsync() / oldalMeret) + 1;
         }
 
-        public int GetNumberOfPagesByQuerystring(string querystring)
+        public async Task<int> GetNumberOfPagesByQuerystring(string querystring)
         {
             //init();
-            return (Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(querystring.ToLower())).Count() / oldalMeret)+1;
+            return (await Context.Kerdoivek.Where(t => t.Nev.ToLower().Contains(querystring.ToLower())).CountAsync() / oldalMeret)+1;
         }
 
-        public int GetNumberOfPagesByTimeInterval(int alsoIdokorlat, int felsoIdokorlat)
+        public async Task<int> GetNumberOfPagesByTimeInterval(int alsoIdokorlat, int felsoIdokorlat)
         {
             //init();
-            return (Context.Kerdoivek.Where(t => (alsoIdokorlat <= t.IdoKorlat && felsoIdokorlat >= t.IdoKorlat)).Count() / oldalMeret) + 1;
+            return (await Context.Kerdoivek.Where(t => (alsoIdokorlat <= t.IdoKorlat && felsoIdokorlat >= t.IdoKorlat)).CountAsync() / oldalMeret) + 1;
         }
 
         public async Task<Kerdoiv> Create(Kerdoiv kerdoiv)
@@ -105,11 +106,11 @@ namespace Kerdoivkezelo.DAL.Services
             return kerdoiv;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             var kerdoiv = Context.Kerdoivek.SingleOrDefault(k => k.Id == id);
             Context.Kerdoivek.Remove(kerdoiv);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
         public async Task<Kerdoiv> Edit(int id, Kerdoiv _kerdoiv)

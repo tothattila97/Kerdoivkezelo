@@ -21,53 +21,49 @@ namespace KerdoivKezelo.Controllers
         }
         // GET: api/Kerdoiv
         [HttpGet]
-        public IActionResult GetKerdoivek()
-        {
-            //KerdoivService kerdoivService = new KerdoivService();
-            return Ok(KerdoivService.GetMockKerdoivek());
-        }
+        public async Task<IActionResult> GetKerdoivek() =>
+            Ok(await KerdoivService.GetMockKerdoivek());
 
         [HttpGet("{querystr}/{pagenumber}")]
-        public IActionResult GetKerdoivekByMegnevezes(string querystr, int pagenumber)
+        public async Task<IActionResult> GetKerdoivekByMegnevezes(string querystr, int pagenumber)
         {
-            //KerdoivService kerdoivService = new KerdoivService();
-            return Ok(KerdoivService.GetSzurtKerdoivekByMegnevezes(querystr, pagenumber));
+            return Ok(await KerdoivService.GetSzurtKerdoivekByMegnevezes(querystr, pagenumber));
         }
 
         [HttpGet("{alsoIdoKorlat}/{felsoIdoKorlat}/{oldalszam}")]
-        public IActionResult GetKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
+        public async Task<IActionResult> GetKerdoivekByIdoIntervallum(int alsoIdoKorlat, int felsoIdokorlat, int oldalszam)
         {
             //KerdoivService kerdoivService = new KerdoivService();
-            return Ok(KerdoivService.GetSzurtKerdoivekByIdoIntervallum(alsoIdoKorlat, felsoIdokorlat, oldalszam));
+            return Ok(await KerdoivService.GetSzurtKerdoivekByIdoIntervallum(alsoIdoKorlat, felsoIdokorlat, oldalszam));
         }
 
         [HttpGet("{oldalszam}")]
-        public IActionResult GetPage(int oldalszam)
+        public async Task<IActionResult> GetPage(int oldalszam)
         {
             //KerdoivService kerdoivService = new KerdoivService();
-            return Ok(KerdoivService.GetKerdoivekAdottOldalon(oldalszam));
+            return Ok(await KerdoivService.GetKerdoivekAdottOldalon(oldalszam));
         }
 
         [HttpGet]
-        public IActionResult GetMaxPage()
+        public async Task<IActionResult> GetMaxPage()
         {
             //KerdoivService kerdoivService = new KerdoivService();
-            return Ok(KerdoivService.GetMaxOldalszam());
+            return Ok(await KerdoivService.GetMaxOldalszam());
         }
 
         //TODO:   paraméter:  querystring   return: hány oldalon át illeszkedik INT
         [HttpGet("{querystring}")]
-        public IActionResult GetMatchingPagesNumber(string querystring)
+        public async Task<IActionResult> GetMatchingPagesNumber(string querystring)
         {
             //KerdoivService kerdoivService = new KerdoivService();
-            return Ok(KerdoivService.GetNumberOfPagesByQuerystring(querystring));
+            return Ok(await KerdoivService.GetNumberOfPagesByQuerystring(querystring));
         }
 
         [HttpGet("{alsoIdokorlat}/{felsoIdokorlat}")]
-        public IActionResult GetPagesNumberByTimeInterval(int alsoIdokorlat, int felsoIdokorlat)
+        public async Task<IActionResult> GetPagesNumberByTimeInterval(int alsoIdokorlat, int felsoIdokorlat)
         {
             //KerdoivService kerdoivService = new KerdoivService();
-            return Ok(KerdoivService.GetNumberOfPagesByTimeInterval(alsoIdokorlat, felsoIdokorlat));
+            return Ok(await KerdoivService.GetNumberOfPagesByTimeInterval(alsoIdokorlat, felsoIdokorlat));
         }
        
 
@@ -97,9 +93,9 @@ namespace KerdoivKezelo.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            KerdoivService.Delete(id);
+            await KerdoivService.Delete(id);
             return Ok();
         }
     }
