@@ -17,11 +17,11 @@ namespace KerdoivKezelo.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly UserManager<Felhasznalo> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
 
-        public AuthController(UserManager<Felhasznalo> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        public AuthController(UserManager<User> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;

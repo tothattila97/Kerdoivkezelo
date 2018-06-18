@@ -18,10 +18,10 @@ namespace KerdoivKezelo.Controllers
     {
 
         private readonly KerdoivKezeloDbContext _appDbContext;
-        private readonly UserManager<Felhasznalo> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public FelhasznaloController(UserManager<Felhasznalo> userManager, IMapper mapper, KerdoivKezeloDbContext appDbContext)
+        public FelhasznaloController(UserManager<User> userManager, IMapper mapper, KerdoivKezeloDbContext appDbContext)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -29,9 +29,9 @@ namespace KerdoivKezelo.Controllers
         }
 
         [HttpGet("users")]
-        public IEnumerable<Felhasznalo> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
-            return _appDbContext.Felhasznalok.ToList();
+            return _appDbContext.Userek.ToList();
         }
 
 
@@ -44,13 +44,13 @@ namespace KerdoivKezelo.Controllers
                 return BadRequest(ModelState);
             }
 
-            var userIdentity = _mapper.Map<Felhasznalo>(model);
+            var userIdentity = _mapper.Map<User>(model);
 
             var result = await _userManager.CreateAsync(userIdentity, model.Password);
 
             if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
 
-            await _appDbContext.Felhasznalok.AddAsync(userIdentity);
+            await _appDbContext.Userek.AddAsync(userIdentity);
             await _appDbContext.SaveChangesAsync();
 
             return new OkObjectResult("Account created");

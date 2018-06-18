@@ -11,12 +11,12 @@ namespace Kerdoivkezelo.DAL.Seed
 {
     public class AdministratorSeeder
     {
-        public AdministratorSeeder(UserManager<Felhasznalo> userManager, RoleManager<IdentityRole<int>> roleManager)
+        public AdministratorSeeder(UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             UserManager = userManager;
             RoleManager = roleManager;
         }
-        public UserManager<Felhasznalo> UserManager { get; }
+        public UserManager<User> UserManager { get; }
         public RoleManager<IdentityRole<int>> RoleManager { get; }
         public async Task Seed()
         {
@@ -24,7 +24,7 @@ namespace Kerdoivkezelo.DAL.Seed
                 await RoleManager.CreateAsync(new IdentityRole<int> { Name = Roles.Administrators });
             if (!(await UserManager.GetUsersInRoleAsync(Roles.Administrators)).Any())
             {
-                var user = new Felhasznalo { Email = "admin@bookshop.hu", Name = "Adminisztrátor", SecurityStamp = Guid.NewGuid().ToString(), UserName = "admin" };
+                var user = new User { Email = "admin@bookshop.hu", Name = "Adminisztrátor", SecurityStamp = Guid.NewGuid().ToString(), UserName = "admin" };
                 var createResult = await UserManager.CreateAsync(user, "$Administrator123");
                 var addToRoleResult = await UserManager.AddToRoleAsync(user, Roles.Administrators);
                 if (!createResult.Succeeded || !addToRoleResult.Succeeded)

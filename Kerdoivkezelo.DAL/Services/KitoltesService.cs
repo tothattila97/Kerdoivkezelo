@@ -37,7 +37,7 @@ namespace Kerdoivkezelo.DAL.Services
             return new KerdoivKitoltes
             {
                 Pontszam = pont,
-                Felhasznalo = new Felhasznalo { Name = felhasznalo },
+                Felhasznalo = new User { Name = felhasznalo },
                 KitoltesKezdete = new DateTimeOffset(),
                 KitoltesVege = new DateTimeOffset()
             };

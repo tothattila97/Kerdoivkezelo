@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -38,13 +39,17 @@ namespace KerdoivKezelo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<Felhasznalo, IdentityRole<int>>(options => options.Stores.MaxLengthForKeys = 128)
+            services.AddIdentityCore<User>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<KerdoivKezeloDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<KerdoivKezeloDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(nameof(KerdoivKezeloDbContext))))
             .AddTransient<AdministratorSeeder>();
+
+            /*services.AddDbContext<KerdoivKezeloDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString(nameof(IdentityDbContext))))
+            .AddTransient<AdministratorSeeder>();*/
 
             services.AddSingleton<IJwtFactory, JwtFactory>();
 
@@ -93,7 +98,7 @@ namespace KerdoivKezelo
                 options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
             });
 
-            var builder = services.AddIdentityCore<Felhasznalo>(o =>
+            var builder = services.AddIdentityCore<User>(o =>
             {
                 // configure identity options
                 o.Password.RequireDigit = false;

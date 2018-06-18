@@ -10,7 +10,7 @@ namespace Kerdoivkezelo.DAL.ViewModels.Mappings
     {
         public ViewModelToEntityMappingProfile()
         {
-            CreateMap<RegistrationViewModel, Felhasznalo>().ForMember(au => au.UserName, map => map.MapFrom(vm => vm.Email));
+            CreateMap<RegistrationViewModel, User>().ForMember(au => au.UserName, map => map.MapFrom(vm => vm.Email));
         }
     }
 }

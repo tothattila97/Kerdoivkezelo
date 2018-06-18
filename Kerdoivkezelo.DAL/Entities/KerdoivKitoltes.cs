@@ -12,7 +12,7 @@ namespace Kerdoivkezelo.DAL.Entities
         public Kerdoiv Kerdoiv { get; set; }
 
         public int FelhasznaloId { get; set; }
-        public Felhasznalo Felhasznalo { get; set; }
+        public User Felhasznalo { get; set; }
 
         public ICollection<JeloltValasz> JeloltValaszok { get; set; }
 

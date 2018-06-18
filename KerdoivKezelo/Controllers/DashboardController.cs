@@ -20,7 +20,7 @@ namespace KerdoivKezelo.Controllers
         private readonly ClaimsPrincipal _caller;
         private readonly KerdoivKezeloDbContext _appDbContext;
 
-        public DashboardController(UserManager<Felhasznalo> userManager, KerdoivKezeloDbContext appDbContext, IHttpContextAccessor httpContextAccessor)
+        public DashboardController(UserManager<User> userManager, KerdoivKezeloDbContext appDbContext, IHttpContextAccessor httpContextAccessor)
         {
             _caller = httpContextAccessor.HttpContext.User;
             _appDbContext = appDbContext;
@@ -49,9 +49,9 @@ namespace KerdoivKezelo.Controllers
         }*/
 
         [HttpGet]
-        public IEnumerable<Felhasznalo> GetTestList()
+        public IEnumerable<User> GetTestList()
         {
-            return new List<Felhasznalo>();
+            return new List<User>();
         }
 
     }
