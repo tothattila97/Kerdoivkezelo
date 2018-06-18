@@ -1,4 +1,5 @@
 <h1>Kérdőívek</h1>
+<h3 *ngIf="currentUser">Üdv {{currentUser.firstName}}!</h3>
 
 <p *ngIf="!kerdoivek"><em>Nincs kérdőív</em></p>
 
@@ -46,7 +47,7 @@
       <td>{{ kerdoiv.eredmeny }}</td>
       <td>
         <button (click)="kerdoivMegnyitasa(kerdoiv.id)">Kitöltés</button>
-        <button (click)="kerdoivSzerkesztese(kerdoiv.id)">Szerkesztés</button>
+        <button (click)="kerdoivSzerkesztese(kerdoiv.id)"><span class="glyphicon glyphicon-edit"></span></button>
       </td>
     </tr>
   </tbody>

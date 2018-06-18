@@ -1,30 +1,37 @@
-import { Component, Inject, OnInit, Input } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Felhasznalo } from '../data/Felhasznalo.data';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-bejelentkezes',
+  providers: [AuthenticationService, AlertService],
   templateUrl: './bejelentkezes.component.html'
 })
 export class BejelentkezesComponent implements OnInit {
-  token: object;
-  ok: boolean = true;
+  model: any = {};
+  loading = false;
 
-  felhasznalo: Felhasznalo;
-  
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.felhasznalo = new Felhasznalo();
+    this.authenticationService.kijelentkezes();
   }
 
   bejelentkezes() {
-    //this.http.get(this.baseUrl + '').subscribe(result => {
-    //  this.token = result
-    //}, error => console.error(error));
-    if (this.ok) {
-      this.router.navigate(['/kerdoiv-lista']);
-    }
+    this.loading = true;
+    this.authenticationService.bejelentkezes(this.model.email, this.model.password)
+      .subscribe(data => {
+        this.router.navigate(['']);
+      },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });
   }
 }

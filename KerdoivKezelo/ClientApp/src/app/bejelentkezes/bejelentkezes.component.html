@@ -3,11 +3,11 @@
   <form name="form">
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" class="form-control" name="email" [(ngModel)]="felhasznalo.email" required />
+      <input type="text" class="form-control" name="email" [(ngModel)]="model.email" required />
     </div>
     <div class="form-group">
-      <label for="jelszo">Jelszó</label>
-      <input type="password" class="form-control" name="jelszo" [(ngModel)]="felhasznalo.jelszo" required />
+      <label for="password">Jelszó</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" required />
     </div>
     <div class="form-group">
       <button class="btn btn-primary" (click)="bejelentkezes()">Bejelentkezés</button>

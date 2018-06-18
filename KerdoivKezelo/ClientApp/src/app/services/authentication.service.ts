@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private http: HttpClient, private baseUrl: string) { }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   bejelentkezes(email: string, password: string) {
     return this.http.post<any>(this.baseUrl + '/bejelentkezes', { email: email, password: password })
@@ -13,7 +13,6 @@ export class AuthenticationService {
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
-
         return user;
       });
   }

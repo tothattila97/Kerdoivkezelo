@@ -1,13 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Felhasznalo } from '../data/Felhasznalo.data';
+import { FelhasznaloService } from '../services/felhasznalo.service';
 
 @Component({
   selector: 'app-kerdoiv-lista',
+  providers: [FelhasznaloService],
   templateUrl: './kerdoiv-lista.component.html'
 })
 export class KerdoivListaComponent implements OnInit {
   public kerdoivek: Kerdoiv[];
+  currentUser: Felhasznalo;
+  users: Felhasznalo[] = [];
+
   utolsoOldal: number;
   oldalszam = 1;
 
@@ -19,11 +25,29 @@ export class KerdoivListaComponent implements OnInit {
   isKereses: boolean = false;
   vasztottOpcio = "optionNev";
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) { }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private router: Router, private felhasznaloService: FelhasznaloService) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+
+    this.currentUser = new Felhasznalo();
+    this.currentUser.firstName = "John";
+    this.currentUser.lastName = "Doe";
+    this.currentUser.email = "example@example.com";
+  }
 
   ngOnInit(): void {
     this.getKerdoivek(this.oldalszam - 1);
     this.initMaxPage();
+    this.loadAllUsers();
+  }
+
+  deleteUser(id: number) {
+    this.felhasznaloService.delete(id).subscribe(() => { this.loadAllUsers() });
+  }
+
+  private loadAllUsers() {
+    this.felhasznaloService.getAll().subscribe(users => { this.users = users; });
   }
 
   getKerdoivek(page: number) {
