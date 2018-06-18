@@ -37,7 +37,8 @@ import { KerdoivSzerkesztesComponent } from './kerdoiv-szerkesztes/kerdoiv-szerk
       { path: 'eredmeny-graf', component: EredmenyGrafComponent },
       { path: 'kerdes/:id', component: KerdesComponent },
       { path: 'kerdoiv-kitoltes/:id', component: KerdoivKitoltesComponent },
-      { path: 'kerdoiv-szerkesztes/:id', component: KerdoivSzerkesztesComponent }
+      { path: 'kerdoiv-szerkesztes/:id', component: KerdoivSzerkesztesComponent },
+      { path: 'kerdoiv-szerkesztes', component: KerdoivSzerkesztesComponent }
     ])
   ],
   providers: [],
