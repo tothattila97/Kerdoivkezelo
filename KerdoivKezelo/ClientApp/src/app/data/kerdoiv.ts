@@ -1,4 +1,4 @@
-import { Kerdes } from './kerdes';
+import { Kerdes, KerdesTipus } from './kerdes';
 
 export class Kerdoiv {
   nev: string;
@@ -11,22 +11,22 @@ export const KERDOIV: Kerdoiv = {
     {
       kerdes: '2+2=?',
       valaszok: [ '1', '2', '3', '4', '#quickmaffs'],
-      tipus: 'tobbszoros'
+      tipus: KerdesTipus.tobbszoros
     },
     {
       kerdes: 'Megyünk enni?',
       valaszok: [ 'Igen', 'Nem :('],
-      tipus: 'egyszeru'
+      tipus: KerdesTipus.egyszeru
     },
     {
       kerdes: 'Megyünk enni?',
       valaszok: [ 'Igen', 'Nem :('],
-      tipus: 'egyszeru'
+      tipus: KerdesTipus.egyszeru
     },
     {
       kerdes: 'Hogyan szaporodnak a polipok?',
       valaszok: [],
-      tipus: 'szoveges'
+      tipus: KerdesTipus.szoveges
     }
   ]
 };
